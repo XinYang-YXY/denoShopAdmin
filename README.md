@@ -1,0 +1,2 @@
+# denoShopAdmin
+Dedicated for admin
