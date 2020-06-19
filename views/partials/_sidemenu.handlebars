@@ -1,0 +1,68 @@
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <button type="button" id="sidebarCollapse" class="btn btn-outline-light">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+    <ul class="list-unstyled components">
+        <li>
+            <a href="#">
+                <i class="fas fa-home"></i>
+                Home
+            </a>
+        </li>
+        <li>
+            <a href="#analytics-dd" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-chart-line"></i>
+                Analytics
+            </a>
+            <ul class="list-unstyled collapse" id="analytics-dd">
+                <li>
+                    <a href="/admin/add-targets">Add Targets</a>
+                </li>
+                <li>
+                    <a href="/admin/executive">Overview</a>
+                </li>
+                <li>
+                    <a href="/admin/gross-profit">Gross Profit</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="/admin/order-history">
+                <i class="fas fa-book"></i>
+                Order History
+            </a>
+        </li>
+
+        <!-- side menu template -->
+{{!-- 
+        if you only need 1 clickable archor use this
+        <li>
+            <a href="#">
+                <i class='fas fa-shopping-bag'></i>
+                Manage Product
+            </a>
+        </li> 
+
+        if you have dropdowns use this        
+        <li>
+            <a href="#product-dd" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class='fas fa-shopping-bag'></i>
+                Manage Product
+            </a>
+            <ul class="list-unstyled collapse" id="product-dd">
+                <li>
+                    <a href="#">Something 1</a>
+                </li>
+                <li>
+                    <a href="#">Something 2</a>
+                </li>
+                <li>
+                    <a href="#">Something 3</a>
+                </li>
+            </ul>
+        </li>
+--}}
+    </ul>
+</nav>

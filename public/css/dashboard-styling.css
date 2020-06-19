@@ -1,0 +1,15 @@
+.kpi-title {
+    font-size: 1em ;
+    text-align: left;
+}
+
+.kpi-current {
+    font-size: 3.5em;
+    text-align: center;
+    color: rgb(60, 197, 122);
+}
+
+.kpi-change {
+    font-size: 0.8em ;
+    text-align: center;
+}
