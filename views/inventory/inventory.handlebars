@@ -1,0 +1,72 @@
+<div class="wrapper">
+    {{>_sidemenu}}
+    <div id="content">
+        {{> flashMsg/flashmsg}}
+        <div class="add">
+            <h3>Inventory Management</h3>
+            <a href="/inventory/add" class="btn btn-primary h-25" name="update">Add Product</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped ">
+                <thead>
+                    <tr>
+                        <th id="no">No.</th>
+                        <th id="img">Image</th>
+                        <th id="name">Name</th>
+                        <th id="price">Price</th>
+                        <th id="quantity">Quantity</th>
+                        <th id="category">Category</th>
+                        <th id="description">Description</th>
+                        <th id="lastmod">Last Modified</th>
+                        <th id="buttons"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each product}}
+                    <tr>
+                        <td>{{id}}</td>
+                        <td>
+                            <img class='product_img img-thumbnail img-fluid' src="{{convert_to_json imageFile 0}}"
+                                alt="">
+                        </td>
+                        <td>{{title}}</td>
+                        <td>${{price}}</td>
+                        <td>{{quantity}}</td>
+                        <td>{{category}}</td>
+                        <td>{{readMore description}}</td>
+                        <td>{{formatDate dateAdded 'DD MMM YYYY'}}</td>
+                        <td>
+                            <div class="button_group">
+                                <a href="/inventory/update/{{id}}" class="btn btn-success mr-2" value="Update"
+                                    id="">Update</a>
+                                <input type="submit" value="Delete" id="modal_window" class="btn btn-danger"
+                                    data-toggle="modal" data-target="#exampleModal"></div>
+                        </td>
+                    </tr>
+                    <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure???
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <a href="/inventory/delete/{{id}}"><button type="button"
+                                            class="btn btn-danger">Delete</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

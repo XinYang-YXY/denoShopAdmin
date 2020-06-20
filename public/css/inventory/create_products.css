@@ -1,0 +1,25 @@
+label{
+    font-family: text;
+    font-size: 1.15em;
+}
+
+.btn{
+    font-family: text;
+}
+
+.row img{
+    width:200px;
+    height:200px;
+}
+
+
+@media only screen and (max-width: 1300px) {
+    .row img {
+        width:150px;
+        height:150px;
+    }
+}
+
+.input-group-append{
+    display: none;
+}

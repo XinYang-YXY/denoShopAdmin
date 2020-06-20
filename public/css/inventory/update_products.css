@@ -1,0 +1,72 @@
+/* .workContent{
+    padding-top: 90px;
+    margin-bottom: 113px;
+}
+
+.content-section h3{
+    font-family: shopFont2;
+    font-size: 3.7em;
+} */
+
+h3{
+    font-family: shopFont2;
+}
+
+label{
+    font-family: text;
+    font-size: 1.15em;
+}
+
+.btn{
+    font-family: text;
+}
+
+.row img{
+    width:200px;
+    height:200px;
+}
+
+/* nav{
+    z-index:1;
+} */
+
+@media only screen and (max-width: 767px) {
+    .row img {
+        width:150px;
+        height:150px;
+    }
+}
+
+/* @media only screen and (max-width: 1000px) {
+    .logo{
+        z-index: 1;
+    }
+    
+} */
+
+.input-group-append{
+    display: none;
+}
+
+input[type='file']{
+    color: #ffffff;
+}
+
+.file_button{
+    /* display:none; */
+}
+
+.delete-icon{
+    position:absolute; 
+    top:10px; 
+    left:7px;
+    cursor: pointer;
+}
+
+.edit-icon{
+    position: absolute;
+    top:4px; 
+    left:35px;
+    cursor: pointer;
+}
+

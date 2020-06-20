@@ -14,7 +14,7 @@ a:focus {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #465ebb;
+    background: #262729;
     color: #fff;
     transition: all 0.3s;
 }
@@ -57,7 +57,7 @@ a:focus {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #465ebb;
+    background: #262729;
 }
 
 #sidebar ul.components {
@@ -100,7 +100,7 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #465ebb;
+    background: #262729;
 }
 
 
@@ -152,4 +152,32 @@ ul ul a {
     #sidebar ul ul a {
         padding: 5px !important;
     }
+}
+
+/*Extra Font family*/
+@font-face {
+	font-family: "slant";
+	src: url("../../fonts/SLANT.TTF");
+}
+@font-face {
+	font-family: "text";
+	src: url("../../fonts/CooperHewitt-Light.otf");
+}
+@font-face {
+	font-family: "shopFont";
+	src: url("../../fonts/FunSized.ttf");
+}
+
+@font-face {
+	font-family: "shopFont2";
+	src: url("../../fonts/CRACKWALL-Regular.ttf");
+}
+
+p{
+    font-family: text;
+}
+
+h3{
+    font-family: shopFont2;
+    font-size: 2.5em;
 }

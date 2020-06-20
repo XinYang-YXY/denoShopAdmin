@@ -9,6 +9,8 @@ const exphbs = require("express-handlebars");
 const methodOverride = require("method-override"); // Override POST method to PUT
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const Handlebars = require('handlebars');
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
 
 const flash = require("connect-flash");
 const FlashMessenger = require("flash-messenger");
@@ -34,6 +36,7 @@ require("dotenv").config();
  */
 const mainRoute = require("./routes/main");
 const analyticRoute = require("./routes/analytic");
+const inventoryRoute = require("./routes/inventory");
 // const videoRoute = require("./routes/video");
 
 // const { formatDate, radioCheck, checkboxFormatter } = require("./helpers/hbs");
@@ -62,6 +65,7 @@ const app = express();
 
 const { multiply } = require("./helpers/hbs");
 const { equal, noEqual } = require("./helpers/hbs");
+const { convert_to_json, readMore, formatDate, select} = require("./helpers/inventory/inventory_helper");
 app.engine(
 	"handlebars",
 	exphbs({
@@ -69,10 +73,14 @@ app.engine(
 			equal,
 			noEqual,
 			multiply,
-			// formatDate,
+			convert_to_json,
+			readMore,
+			formatDate,
+			select
 			// radioCheck,
 			// checkboxFormatter,
 		},
+		handlebars: allowInsecurePrototypeAccess(Handlebars),
 		defaultLayout: "layout", // Specify default template views/layout/main.handlebar
 	})
 );
@@ -149,6 +157,7 @@ app.use(function (req, res, next) {
 //  * */
 app.use("/", mainRoute); // mainRoute is declared to point to routes/main.js
 app.use("/analytics", analyticRoute);
+app.use('/inventory', inventoryRoute);
 // app.use("/video", videoRoute);
 // This route maps the root URL to any path defined in main.js
 

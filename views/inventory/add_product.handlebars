@@ -1,0 +1,81 @@
+<div class="wrapper">
+    {{>_sidemenu}}
+    <div id="content">
+        <h3 style="text-align: center;">Add Product</h3>
+        <div class="card card-body">
+            <form action="/inventory/addproduct" method="post" id="addInventory">
+                <div class="row">
+                    <div class="col-md-5 col-lg-5">
+                        <div class="row">
+                            <img id="prod1" src="/img/no-image.jpg" alt="" class=" poster img-thumbnail img-fluid ">
+                            <input id="prodURL1" type="hidden" name="prodURL">
+                            <img id="prod2" src="/img/no-image.jpg" alt="" class=" poster img-thumbnail img-fluid">
+                            <input id="prodURL2" type="hidden" name="prodURL">
+                        </div>
+                        <div class="row">
+                            <img id="prod3" src="/img/no-image.jpg" alt="" class=" poster img-thumbnail img-fluid">
+                            <input id="prodURL3" type="hidden" name="prodURL">
+                            <img id="prod4" src="/img/no-image.jpg" alt="" class=" poster img-thumbnail img-fluid">
+                            <input id="prodURL4" type="hidden" name="prodURL">
+                        </div>
+                        <input type="file" id="prodUpload" name="prodUpload"
+                            accept="image/png,image/jpeg,image/jpg,image/" multiple>
+                        <div class="font-weight-bold text-danger small" id="prodErr" style="display:none"></div>
+                    </div>
+
+                    <div class="col-md-7 col-lg-7 d-flex flex-column">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="">Title</label>
+                                    <input type="text" name="title" id="title" class="form-control" value="" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Price($)</label>
+                                    <input type="number" min="1" step="any" name="price" id="price" class="form-control"
+                                        value="" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Quantity</label>
+                                    <input type="number" min="1" step="1" name="quantity" id="quantity"
+                                        class="form-control" value="" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Category</label>
+                                    <select class="form-control" id="category" name="category">
+                                        <option>Outfit</option>
+                                        <option>Tools</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Description</label>
+                                    <textarea class="form-control" id="description" name="description" rows="5"
+                                        required></textarea>
+                                    <input id="datepicker" width="200" name="dateAdded" type="hidden" readonly />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row d-flex flex-grow-1 text-right align-items-end">
+                            <div class="col-md-12">
+                                <a href="/inventory" class="btn btn-secondary">Back</a>
+                                <input type="submit" name="submit_btn" id="submit_btn" class="btn btn-primary"
+                                    value="Submit">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        value: new Date().toLocaleDateString('en-SG'),
+        uiLibrary: 'bootstrap4',
+    });
+</script>
