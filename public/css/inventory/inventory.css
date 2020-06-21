@@ -45,10 +45,6 @@ td{
   margin-right:5px;
 }
 
-.content-section legend{
-  font-family: shopFont2;
-}
-
 .add{
   display: flex;
   justify-content: space-between;
