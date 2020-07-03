@@ -1,0 +1,59 @@
+<div class="wrapper">
+    {{>_sidemenu}}
+    <div id="content">
+        <h3>My Business Target</h3>
+        <br>
+        <div class="row">
+            <div class="col border rounded shadow-sm m-1">
+                <p class="panel-title">Current</p>
+                <p class="panel-current">S$ - </p>
+            </div>
+            <div class="col border rounded shadow-sm m-1">
+                <p class="panel-title">Previous</p>
+                <p class="panel-current">S$ - </p>
+            </div>
+            <div class="col border rounded shadow-sm m-1">
+                <p class="panel-title">Deficit</p>
+                <p class="panel-current">S$ - </p>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col border rounded shadow-sm m-1">
+                <h4>Set Product Sales Volume</h4>
+                <form action="" method="post">
+                    <table class="table">
+                        <thead class="">
+                            <tr>
+                                <th class="col-4">Name</th>
+                                <th class="col">Price(S$)</th>
+                                <th class="col">Previous Quota</th>
+                                <th class="col">Set Quota</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#if products}}
+                            {{#each products}}
+                            <tr>
+                                <td class="col-4">{{name}}</td>
+                                <td class="col">{{price}}</td>
+                                <td class="col">{{prev_quota}}</td>
+                                <td class="col">
+                                    <input type="number" id="{{id}}">
+                                </td>
+                            </tr>
+                            {{/each}}
+                            {{else}}
+                            {{/if}}
+
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <button id="setTarget" type="submit" class="btn col-4 btn-primary m-3">Set Targets
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

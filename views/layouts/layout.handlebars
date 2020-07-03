@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8" />
@@ -40,12 +39,16 @@
 	<link rel="stylesheet" href="/css/{{this}}" />
 	{{/each}}
 	{{/if}}
-	{{!-- {% block cssJs %}{% endblock %} --}}
-</head>
 
+	{{#if jsPlugins}}
+	{{#each jsPlugins}}
+	<script src="{{this}}"></script>
+	{{/each}}
+	{{/if}}
+	
+</head>
 <body>
 	{{{body}}}
-
 	<!-- jQuery -->
 	{{!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -61,9 +64,8 @@
 
 	{{#if script }}
 	{{#each script}}
-	<script src="/js/{{ this }}"></script>
+	<script src="/js/{{this}}"></script>
 	{{/each}}
 	{{/if}}
 </body>
-
 </html>

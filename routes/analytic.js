@@ -1,41 +1,92 @@
 const express = require('express');
 const router = express.Router();
 
-// test data
-orderData = [{ order_id: 1, user_id: 31, date: "03-02-2019" },
-{ order_id: 2, user_id: 39, date: "03-09-2019" },
-{ order_id: 3, user_id: 121, date: "21-12-2019" },
-{ order_id: 4, user_id: 21, date: "16-01-2020" },
-{ order_id: 5, user_id: 53, date: "27-03-2020" }]
-
+const hackingProduct = require('../models/HackingProduct');
+const ProductStats = require('../models/ProductStats');
+const currentDate = new Date();
 
 router.get('/add-targets', (req, res) => {
-    return "placeholder"
+    ProductStats.findAll({
+        where: {
+            year: currentDate.getFullYear()
+        },
+        include: [
+            {
+                model: hackingProduct
+            }
+        ],
+    }).then(data => {
+        let products = [];
+        data.forEach(o => {
+            products.push({
+                id: o.hackingProductId,
+                name: o.hackingProduct.title,
+                price: o.hackingProduct.price,
+                prev_quota: o.target
+            })
+        });
+        res.render('analytics/target', {
+            title: "Add Targets",
+            style: { sidemenu: "sidemenu-styling.css", dashboard: "analytics/dashboard-styling.css" },
+            script: { sidemenu: "sidemenu-script.js" },
+            products: products,
+        });
+    })
 })
 
-router.get('/executive', (req, res) => {
-    res.render('analytics/executive', {
-        title: "Executive Dashboard",
-        style: { sidemenu: "sidemenu-styling.css" , dashboard: "dashboard-styling.css"},
+router.get('/', (req, res) => {
+    res.render('analytics/overview', {
+        title: "Overview",
+        style: { sidemenu: "sidemenu-styling.css", dashboard: "analytics/dashboard-styling.css" },
         script: { text: "sidemenu-script.js" }
     });
 })
 
-router.get('/gross-profit', (req, res) => {
-    res.render('analytics/gross-profit', {
-        title: "Gross Profit Dashboard",
-        style: { sidemenu: "sidemenu-styling.css" , dashboard: "dashboard-styling.css"},
+router.get('/sales', (req, res) => {
+    res.render('analytics/sales', {
+        title: "Sales",
+        style: { sidemenu: "sidemenu-styling.css", dashboard: "analytics/dashboard-styling.css" },
         script: { sidemenu: "sidemenu-script.js" }
     });
 })
 
-router.get('/order-history', (req, res) => {
-    res.render('order-history', {
-        title: "Order History",
-        order: orderData,
-        style: { sidemenu: "sidemenu-styling.css" },
-        script: { sidemenu: "sidemenu-script.js" }
-    });
-});
+router.get('/collections', (req, res) => {
+    ProductStats.findAll({
+        where: {
+            year: currentDate.getFullYear()
+        },
+        include: [
+            {
+                model: hackingProduct
+            }
+        ],
+    })
+        .then(data => {
+            let stats = [];
+            data.forEach(o => {
+                let sold = o.jan + o.feb + o.mar + o.apr + o.may + o.jun +
+                    o.jul + o.aug + o.sep + o.oct + o.nov + o.dec;
+                let target = o.target;
+                if (target - sold > 0) {
+                    let stat = {
+                        id: o.hackingProductId,
+                        name: o.hackingProduct.title,
+                        sold: sold,
+                        target: target,
+                        short: target - sold,
+                    }
+                    stats.push(stat)
+                }
+            });
+            res.render('analytics/collections', {
+                title: "Product Collections",
+                style: { sidemenu: "sidemenu-styling.css", dashboard: "analytics/dashboard-styling.css" },
+                script: { sidemenu: "sidemenu-script.js" },
+                jsPlugins: { src: "/chart.js/dist/Chart.js" },
+                unsold: stats,
+            });
+            console.log(stats);
+        })
+})
 
 module.exports = router;

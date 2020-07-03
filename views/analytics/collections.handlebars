@@ -1,0 +1,129 @@
+<div class="wrapper">
+    {{>_sidemenu}}
+    <div id="content">
+        <h3>Collections</h3>
+        <div class="row">
+            <div class="col-xl-8 col-lg-12">
+                <div class="row">
+                    <div class="col border rounded shadow-sm m-1">
+                        <h4 id="prod-name-chart">Monthly Avg rating vs sold volume for Select Product</h4>
+                        <canvas id="rate-vol-chart"></canvas>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col border rounded shadow-sm m-1">
+                        <h4 id="prod-name-word">What customer say about Select Product</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col border rounded shadow-sm m-1">
+                <h4>Unfulfilled targets</h4>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="col-6">Name</th>
+                            <th class="col-2">Sold</th>
+                            <th class="col-2">Target</th>
+                            <th class="col-2">Short</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if unsold}}
+                        {{#each unsold}}
+                        <tr>
+                            <td class="col-6">
+                                <span onclick="updateData({{id}}, '{{name}}');" style="text-decoration: underline;">{{name}}</span>
+                            </td>
+                            <td class="col-2">{{sold}}</td>
+                            <td class="col-2">{{target}}</td>
+                            <td class="col-2">{{short}}</td>
+                        </tr>
+                        {{/each}}
+                        {{else}}
+                        <tr>
+                            <td>No Unfulfilled Targets</td>
+                        </tr>
+                        {{/if}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let template = {
+        type: 'bar',
+        data: {
+            datasets: [{
+                label: 'Volume Sold',
+                yAxisID: 'bar-yAxis',
+                order: 2,
+                backgroundColor: 'rgb(63, 159, 191)',
+                borderColor: 'rgb(63, 159, 191)',
+                data: [],
+            }, {
+                // Changes this dataset to become a line
+                type: 'line',
+                label: 'Average Rating',
+                yAxisID: 'line-yAxis',
+                order: 1,
+                borderColor: 'rgb(255, 155, 5)',
+                data: [],
+                fill: false,
+                fillColor: "rgba(220,220,220,0.5)",
+
+                lineTension: 0,
+                options: {
+                    legend: {
+                        labels: {
+                            useLineStyle: true
+                        }
+                    }
+                }
+
+            }],
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    display: true,
+                    id: 'bar-yAxis',
+                    type: 'linear',
+                    position: 'left',
+                    ticks: {
+                        maxTicksLimit: 6,
+                        stepSize: 1,
+                    },
+                }, {
+                    display: true,
+                    id: 'line-yAxis',
+                    type: 'linear',
+                    position: 'right',
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: {
+                        min: 0,
+                        max: 5,
+                        stepSize: 1,
+                    },
+                }]
+            }
+        }
+    };
+    let chart = new Chart(document.getElementById('rate-vol-chart').getContext('2d'), template);
+
+    function updateData(id, name) {
+        fetch(`/api/product-sold-rate/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                data = JSON.parse(data)
+                chart.data.datasets[0].data = data[0];
+                chart.data.datasets[1].data = data[1];
+                chart.update();
+            });
+        document.getElementById('prod-name-chart').innerHTML = `Monthly Avg rating vs sold volume for ${name}`;
+        document.getElementById('prod-name-word').innerHTML = `What customer say about ${name}`;
+    }
+</script>

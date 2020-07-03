@@ -71,7 +71,7 @@ a:focus {
 }
 
 #sidebar ul li a:hover {
-    color: #465ebb;
+    color: #262729;
     background: #fff;
 }
 
@@ -81,8 +81,8 @@ a:focus {
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
-    color: #fff;
-    background: #465ebb;
+    color: #262729;
+    background: #fff;
 }
 
 a[data-toggle="collapse"] {
