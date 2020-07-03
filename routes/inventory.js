@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
             res.render('inventory/inventory', {
                 title: "Inventory",
                 style: { sidemenu: "sidemenu-styling.css", dashboard: "dashboard-styling.css", text: "inventory/inventory.css" },
-                script: { sidemenu: "sidemenu-script.js" },
+                script: { sidemenu: "sidemenu-script.js", datatable: "/inventory/datatable.js" },
                 product: inventory
             });
         })
@@ -58,8 +58,8 @@ router.get('/delete/:id', (req, res) => {
             for (var i = 0; i < json.length; i++) {
                 if (json[i].startsWith('http')) {
                     let a = json[i].lastIndexOf('.');
-                    let b = json[i].substring(0, a).split('/').slice(-2).join('/');
-                    cloudinary.v2.uploader.destroy(b, function (error, result) {
+                    let public_url = json[i].substring(0, a).split('/').slice(-3).join('/');
+                    cloudinary.v2.uploader.destroy(public_url, function (error, result) {
                         if (error) { console.log(error) };
                     });
                 }
@@ -97,7 +97,7 @@ router.post('/addproduct', async (req, res) => {
     var new_url = [];
     for (var i = 0; i < image_urls.length; i++) {
         if (image_urls[i] != '/img/no-image.jpg') {
-            await cloudinary.v2.uploader.upload('./public/' + image_urls[i], { folder: "denoshop", use_filename: true }, function (error, result) { error ? console.log(error) : new_url.push(result.url)})
+            await cloudinary.v2.uploader.upload('./public/' + image_urls[i], { folder: "denoshop/products", use_filename: true }, function (error, result) { error ? console.log(error) : new_url.push(result.url);})
         } else {
             new_url.push('/img/no-image.jpg');
         }
@@ -178,8 +178,8 @@ router.put('/updateproduct/:id', async (req, res) => {
                 if (original_image_url[i].startsWith('http')) {
                     console.log(original_image_url[i]);
                     let a = original_image_url[i].lastIndexOf('.');
-                    let b = original_image_url[i].substring(0, a).split('/').slice(-2).join('/');
-                    cloudinary.v2.uploader.destroy(b, function (error, result) {
+                    let public_url = original_image_url[i].substring(0, a).split('/').slice(-3).join('/');
+                    cloudinary.v2.uploader.destroy(public_url, function (error, result) {
                         if (error) { console.log(error) };
                     });
                 }

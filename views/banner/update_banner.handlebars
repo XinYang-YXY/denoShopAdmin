@@ -1,0 +1,61 @@
+<div class="wrapper">
+    {{>_sidemenu}}
+    <div id="content">
+        <h3 style="text-align: center;">Update Banner</h3>
+        <div class="card card-body">
+            <form action="/banner/updatebanner/{{banner.id}}?_method=PUT" method="post">
+                <input type="hidden" name="_method" value="PUT">
+                <div class="row">
+                    <div class="col d-flex flex-column">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="">Title</label>
+                                    <input type="text" name="title" id="title" class="form-control" value="{{banner.title}}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Status</label>
+                                    <select class="form-control" id="status" name="status">
+                                        {{#select banner.status}}
+                                        <option value="Active">Active</option>
+                                        <option value="Inactive">Inactive</option>
+                                        {{/select}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Preview:</p>
+                        <p>Recommended size: 1100 x 300</p>
+                        <img id="banner_img" src="{{banner.imageFile}}" alt="" class=" poster img-thumbnail img-fluid"
+                            style="width:1110px;height:333px;">
+                        <input id="bannerURL" type="hidden" name="bannerURL" value="{{banner.imageFile}}">
+                        <input type="file" id="bannerUpload" name="bannerUpload"
+                            accept="image/png,image/jpeg,image/jpg,image/">
+                        <div class="font-weight-bold text-danger small" id="prodErr" style="display:none"></div>
+                        <div class="row d-flex flex-grow-1 text-right align-items-end">
+                            <div class="col-md-12">
+                                <a href="/banner" class="btn btn-secondary">Back</a>
+                                <input type="submit" name="submit_btn" id="submit_btn" class="btn btn-primary"
+                                    value="Update">
+                            </div>
+                        </div>
+                        <input id="datepicker" width="200" name="dateAdded" type="hidden" readonly />
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        value: new Date().toLocaleDateString('en-SG'),
+        uiLibrary: 'bootstrap4',
+    });
+</script>

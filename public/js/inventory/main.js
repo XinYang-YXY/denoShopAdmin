@@ -34,97 +34,37 @@ $('#prodUpload').on('change', function () {
 });
 
 
-$('#prodUpload1').on('change', function () {
-    let formdata = new FormData();
-    let image = $("#prodUpload1")[0].files[0];
-    formdata.append('prodUpload1', image);
-    $.ajax({
-        url: '/inventory/upload1',
-        type: 'POST',
-        data: formdata,
-        contentType: false,
-        processData: false,
-        'success': (data) => {
-            $('#img1').attr('src', data.file);
-            $('#prodURL1').attr('value', data.file);
-            if (data.err) {
-                $('#prodErr').show();
-                $('#prodErr').text(data.err.message);
-            } else {
-                $('#prodErr').hide();
+function prodUpload(id, upload, img, prodURL){
+    $('#'+id).on('change', function () {
+        let formdata = new FormData();
+        let image = $("#"+id)[0].files[0];
+        formdata.append(id, image);
+        $.ajax({
+            url: upload,
+            type: 'POST',
+            data: formdata,
+            contentType: false,
+            processData: false,
+            'success': (data) => {
+                $('#'+ img).attr('src', data.file);
+                $('#'+ prodURL).attr('value', data.file);
+                if (data.err) {
+                    $('#prodErr').show();
+                    $('#prodErr').text(data.err.message);
+                } else {
+                    $('#prodErr').hide();
+                }
             }
-        }
-    })
-});
+        })
+    });
+}
 
-$('#prodUpload2').on('change', function () {
-    let formdata = new FormData();
-    let image = $("#prodUpload2")[0].files[0];
-    formdata.append('prodUpload2', image);
-    $.ajax({
-        url: '/inventory/upload2',
-        type: 'POST',
-        data: formdata,
-        contentType: false,
-        processData: false,
-        'success': (data) => {
-            $('#img2').attr('src', data.file);
-            $('#prodURL2').attr('value', data.file);
-            if (data.err) {
-                $('#prodErr').show();
-                $('#prodErr').text(data.err.message);
-            } else {
-                $('#prodErr').hide();
-            }
-        }
-    })
-});
 
-$('#prodUpload3').on('change', function () {
-    let formdata = new FormData();
-    let image = $("#prodUpload3")[0].files[0];
-    formdata.append('prodUpload3', image);
-    $.ajax({
-        url: '/inventory/upload3',
-        type: 'POST',
-        data: formdata,
-        contentType: false,
-        processData: false,
-        'success': (data) => {
-            $('#img3').attr('src', data.file);
-            $('#prodURL3').attr('value', data.file);
-            if (data.err) {
-                $('#prodErr').show();
-                $('#prodErr').text(data.err.message);
-            } else {
-                $('#prodErr').hide();
-            }
-        }
-    })
-});
-
-$('#prodUpload4').on('change', function () {
-    let formdata = new FormData();
-    let image = $("#prodUpload4")[0].files[0];
-    formdata.append('prodUpload4', image);
-    $.ajax({
-        url: '/inventory/upload4',
-        type: 'POST',
-        data: formdata,
-        contentType: false,
-        processData: false,
-        'success': (data) => {
-            $('#img4').attr('src', data.file);
-            $('#prodURL4').attr('value', data.file);
-            if (data.err) {
-                $('#prodErr').show();
-                $('#prodErr').text(data.err.message);
-            } else {
-                $('#prodErr').hide();
-            }
-        }
-    })
-});
+prodUpload('prodUpload1', '/inventory/upload1', 'img1', 'prodURL1');
+prodUpload('prodUpload2', '/inventory/upload2', 'img2', 'prodURL2');
+prodUpload('prodUpload3', '/inventory/upload3', 'img3', 'prodURL3');
+prodUpload('prodUpload4', '/inventory/upload4', 'img4', 'prodURL4');
+prodUpload('bannerUpload', '/banner/upload', 'banner_img', 'bannerURL');
 
 
 function remove_img(a){

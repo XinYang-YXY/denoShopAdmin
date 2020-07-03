@@ -9,45 +9,39 @@
         {{> flashMsg/flashmsg}}
         {{!-- <div class="add"> --}}
         <div class="container-fluid">
-            <h3>Products</h3>
+            <h3>Banners</h3>
 
             {{!-- </div> --}}
             <div class="d-flex justify-content-between mt-5">
-                <a href="/inventory/add" class="btn btn-primary mb-2" name="update">Add Product</a>
+                <a href="/banner/add" class="btn btn-primary mb-2" name="update">Add Banner</a>
                 <div class="form-inline md-form mt-0" style="position: relative;">
                     <i class="fas fa-search fa-sm" aria-hidden="true" style="position: absolute; left:25px;"></i>
-                    <input class="form-control form-control ml-3" id="search" type="text" placeholder="Search"
+                    <input class="form-control form-control ml-3" id="banner_search" type="text" placeholder="Search"
                         aria-label="Search" style="border-radius:20px; padding-left:27px; ">
                 </div>
             </div>
 
-            <table class="table table-hover dt-responsive " id="inventory_table" style="width:100%;">
+            <table class="table table-hover dt-responsive " id="banner_table" style="width:100%;">
                 <thead>
                     <tr>
                         <th id="no">No.</th>
                         <th id="img">Image</th>
-                        <th id="name">Name</th>
-                        <th id="price">Price</th>
-                        <th id="quantity">Quantity</th>
-                        <th id="category">Category</th>
-                        <th id="description">Description</th>
+                        <th id="name">Title</th>
+                        <th id="status">Status</th>
                         <th id="lastmod">Last Modified</th>
                         <th id="buttons"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each product}}
+                    {{#each banner}}
                     <tr>
                         <td>{{id}}</td>
                         <td>
-                            <img class='product_img img-thumbnail img-fluid' src="{{convert_to_json imageFile 0}}"
-                                alt="">
+                            <img class='product_img img-thumbnail img-fluid' src="{{imageFile}}" alt=""
+                                style="width:200px; height:auto;">
                         </td>
                         <td>{{title}}</td>
-                        <td>${{price}}</td>
-                        <td>{{quantity}}</td>
-                        <td>{{category}}</td>
-                        <td>{{readMore description}}</td>
+                        <td>{{status}}</td>
                         <td>{{formatDate dateAdded 'DD MMM YYYY'}}</td>
                         <td>
                             {{!-- <div class="button_group">
@@ -56,9 +50,8 @@
                             <input type="submit" value="Delete" id="modal_window" class="btn btn-danger"
                                 data-toggle="modal" data-target="#exampleModal"></div> --}}
                             <div class="icons d-flex">
-                                <a data-toggle="modal" href="#detailsModal{{id}}"><i class="fas fa-eye"
-                                        data-toggle="tooltip" title="View"></i></a>
-                                <a data-toggle="tooltip" title="Update" href="/inventory/update/{{id}}"><i
+                                {{!-- <a data-toggle="modal" href="#detailsModal{{id}}"><i class="fas fa-eye" data-toggle="tooltip" title="View"></i></a> --}}
+                                <a data-toggle="tooltip" title="Update" href="/banner/update/{{id}}"><i
                                         class="fas fa-edit"></i></a>
                                 <a data-toggle="modal" href="#exampleModal{{id}}"><i class="fas fa-trash-alt"
                                         data-toggle="tooltip" title="Delete"></i></a>
@@ -80,37 +73,8 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <a href="/inventory/delete/{{id}}"><button type="button"
+                                    <a href="/banner/delete/{{id}}"><button type="button"
                                             class="btn btn-danger">Delete</button></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal" id="detailsModal{{id}}" tabindex="-1" role="dialog"
-                        aria-labelledby="detailsModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="detailsModalLabel">{{title}}</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>ID: {{id}}</p>
-                                    <p>Image: <img class='product_img img-thumbnail img-fluid'
-                                            src="{{convert_to_json imageFile 0}}" alt=""
-                                            style="width:300px; height:auto;">
-                                    </p>
-                                    <p>Title: {{title}}</p>
-                                    <p>Price: {{price}}</p>
-                                    <p>Quantity: {{quantity}}</p>
-                                    <p>Category: {{category}}</p>
-                                    <p>Description: {{description}}</p>
-                                    <p>Last Modified: {{formatDate dateAdded 'DD MMM YYYY'}}</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
