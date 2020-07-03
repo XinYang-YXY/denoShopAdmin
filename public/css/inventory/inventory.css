@@ -37,25 +37,34 @@ td{
   white-space: nowrap;
 }
 
-.button_group{
+.icons i {
+  padding-right:10px;
+}
+
+/* .button_group{
   display: flex;
 }
 
 .btn{
   margin-right:5px;
-}
+} */
 
-.add{
+/* .add{
   display: flex;
   justify-content: space-between;
-}
+} */
 
-#id{
+/* th{
+  background-color:#7d7a79;
+  color:white;
+} */
+
+/* #id{
   padding-right:10px;
 }
 
 #name{
-  padding-right:150px;
+  padding-right:120px;
 }
 
 #price, #quantity, #img, #lastmod{
@@ -67,10 +76,10 @@ td{
 }
 
 #description{
-  padding-right:70px;
+  padding-right:40px;
 }
 
 #category{
   padding-right: 40px;
-}
+} */
 
