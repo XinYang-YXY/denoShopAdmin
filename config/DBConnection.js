@@ -9,6 +9,7 @@ const productStats = require("../models/ProductStats");
 const productRating = require("../models/ProductRatings");
 const userRating = require("../models/UserRating");
 const deliveryInfo = require("../models/DeliveryInfo");
+const category = require("../models/Category");
 // Import all the models
 
 const setUpDB = (drop) => {
@@ -21,6 +22,7 @@ const setUpDB = (drop) => {
 			user.hasMany(purchaseRecord); // Define relationship
 			user.hasMany(cartItem);
 			user.hasMany(deliveryInfo);
+			category.hasMany(hackingProduct, {foreignKey: 'category'});
 
 			// Product-Stats Relation
 			hackingProduct.hasMany(productStats);

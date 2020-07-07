@@ -1,0 +1,27 @@
+<div class="wrapper">
+    {{>_sidemenu}}
+    <div id="content">
+        <h3 style="text-align: center;">Update Category</h3>
+        {{> flashMsg/flashmsg}}
+        <div class="card card-body" style="margin-top:50px;">
+            <form action="/category/updatecategory/{{category.id}}?_method=PUT" method="post">
+                <input type="hidden" name="_method" value="PUT">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Category Name</label>
+                            <input type="text" name="category" id="category" class="form-control"
+                                value="{{category.category}}" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex flex-grow-1 text-right align-items-end">
+                    <div class="col ">
+                        <a href="/category" class="btn btn-secondary">Back</a>
+                        <input type="submit" name="submit_btn" id="submit_btn" class="btn btn-primary" value="Update">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

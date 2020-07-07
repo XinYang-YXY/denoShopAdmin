@@ -2,6 +2,7 @@
     {{>_sidemenu}}
     <div id="content">
         <h3 style="text-align: center;">Add Product</h3>
+        {{> flashMsg/flashmsg}}
         <div class="card card-body">
             <form action="/inventory/addproduct" method="post" id="addInventory">
                 <div class="row">
@@ -43,8 +44,13 @@
                                 <div class="form-group">
                                     <label for="">Category</label>
                                     <select class="form-control" id="category" name="category">
-                                        <option>Outfit</option>
-                                        <option>Tools</option>
+                                        {{#if category}}
+                                        {{#each category}}
+                                        <option>{{category}}</option>
+                                        {{/each}}
+                                        {{else}}
+                                        <option>???????????????????????</option>
+                                        {{/if}}
                                     </select>
                                 </div>
                                 <div class="form-group">

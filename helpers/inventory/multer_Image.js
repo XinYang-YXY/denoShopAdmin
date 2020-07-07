@@ -1,5 +1,6 @@
 const multer = require('multer');
 const path = require('path');
+
 // Set The Storage Engine
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
@@ -9,56 +10,24 @@ const storage = multer.diskStorage({
         callback(null, Date.now() + path.extname(file.originalname));
     }
 });
+
+let multer_obj = {
+    storage: storage,
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter: (req, file, callback) => {
+        checkFileType(file, callback);
+    }
+};
+
 // Initialise Upload
-const upload = multer({
-    storage: storage,
-    limits: {
-        fileSize: 1000000
-    },
-    fileFilter: (req, file, callback) => {
-        checkFileType(file, callback);
-    }
-}).array('prodUpload',4); // Must be the name as the HTML file upload input
-
-const single_upload1 = multer({
-    storage: storage,
-    limits: {
-        fileSize: 1000000
-    },
-    fileFilter: (req, file, callback) => {
-        checkFileType(file, callback);
-    }
-}).single('prodUpload1');
-
-const single_upload2 = multer({
-    storage: storage,
-    limits: {
-        fileSize: 1000000
-    },
-    fileFilter: (req, file, callback) => {
-        checkFileType(file, callback);
-    }
-}).single('prodUpload2');
-
-const single_upload3 = multer({
-    storage: storage,
-    limits: {
-        fileSize: 1000000
-    },
-    fileFilter: (req, file, callback) => {
-        checkFileType(file, callback);
-    }
-}).single('prodUpload3');
-
-const single_upload4 = multer({
-    storage: storage,
-    limits: {
-        fileSize: 1000000
-    },
-    fileFilter: (req, file, callback) => {
-        checkFileType(file, callback);
-    }
-}).single('prodUpload4');
+const upload = multer(multer_obj).array('prodUpload',4); // Must be the name as the HTML file upload input
+const single_upload1 = multer(multer_obj).single('prodUpload1');
+const single_upload2 = multer(multer_obj).single('prodUpload2');
+const single_upload3 = multer(multer_obj).single('prodUpload3');
+const single_upload4 = multer(multer_obj).single('prodUpload4');
+const single_upload_banner = multer(multer_obj).single('bannerUpload');
 
 // Check File Type
 function checkFileType(file, callback) {
@@ -75,5 +44,5 @@ function checkFileType(file, callback) {
     }
 }
 module.exports = { upload: upload, single_upload1: single_upload1, single_upload2: single_upload2, single_upload3: single_upload3, 
-    single_upload4: single_upload4
+    single_upload4: single_upload4, single_upload_banner: single_upload_banner
 };
