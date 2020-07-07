@@ -59,6 +59,23 @@ $(document).ready(function () {
     $('#banner_search').on('keyup', function () {
         banner_table.search(this.value).draw();
     });
+
+    var category_table = $('#category_table').DataTable({
+        // "columnDefs": [
+        //     { "orderable": false, "targets": [1, 6, 8] }
+        // ],
+        "dom":"<'row'<'col-sm-12'tr>>" +
+            "<'row mt-5'<'col-sm-12 col-md-5'l><'col-sm-12 col-md-7'p>>" +
+            "<'row'<'col-sm-12 col-md-12 mt-10' i>>",
+        "columns": [
+            null,
+            null,
+            { "orderable": false }
+        ]
+    });
+    $('#category_search').on('keyup', function () {
+        category_table.search(this.value).draw();
+    });
 });
 
 

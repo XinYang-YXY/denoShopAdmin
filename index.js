@@ -38,6 +38,7 @@ const mainRoute = require("./routes/main");
 const analyticRoute = require("./routes/analytic");
 const inventoryRoute = require("./routes/inventory");
 const bannerRoute = require("./routes/banner");
+const categoryRoute = require("./routes/category");
 // const videoRoute = require("./routes/video");
 
 // const { formatDate, radioCheck, checkboxFormatter } = require("./helpers/hbs");
@@ -160,6 +161,7 @@ app.use("/", mainRoute); // mainRoute is declared to point to routes/main.js
 app.use("/analytics", analyticRoute);
 app.use('/inventory', inventoryRoute);
 app.use('/banner', bannerRoute);
+app.use('/category', categoryRoute);
 // app.use("/video", videoRoute);
 // This route maps the root URL to any path defined in main.js
 

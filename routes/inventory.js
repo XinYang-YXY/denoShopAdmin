@@ -4,6 +4,7 @@ const alertMessage = require('../helpers/messenger');
 const fs = require('fs');
 const moment = require('moment');
 const Inventory = require('../models/HackingProduct');
+const Category = require('../models/Category');
 const cloudinary = require('cloudinary');
 require("../helpers/inventory/cloudinary");
 const { upload, single_upload1, single_upload2, single_upload3, single_upload4 } = require('../helpers/inventory/multer_Image');
@@ -26,6 +27,11 @@ router.get('/', (req, res) => {
 
 
 router.get('/update/:id', (req, res) => {
+    let category_names;
+    Category.findAll()
+        .then((category) => {
+            category_names = category;
+        })
     Inventory.findOne({
         where: {
             id: req.params.id
@@ -36,9 +42,9 @@ router.get('/update/:id', (req, res) => {
             inventory: inventory,
             style: { sidemenu: "sidemenu-styling.css", dashboard: "dashboard-styling.css", text: "inventory/update_products.css" },
             script: { sidemenu: "sidemenu-script.js", js: "/inventory/main.js" },
-            title: "Update Product"
+            title: "Update Product",
+            category: category_names
         });
-
     }).catch(err => console.log(err));
 });
 
@@ -78,11 +84,15 @@ router.get('/delete/:id', (req, res) => {
 
 
 router.get('/add', (req, res) => {
-    res.render('inventory/add_product', {
-        title: "Add Inventory",
-        style: { sidemenu: "sidemenu-styling.css", dashboard: "dashboard-styling.css", text: "inventory/create_products.css" },
-        script: { sidemenu: "sidemenu-script.js", js: "/inventory/main.js" }
-    });
+    Category.findAll()
+        .then((category) => {
+            res.render('inventory/add_product', {
+                title: "Add Inventory",
+                style: { sidemenu: "sidemenu-styling.css", dashboard: "dashboard-styling.css", text: "inventory/create_products.css" },
+                script: { sidemenu: "sidemenu-script.js", js: "/inventory/main.js" },
+                category: category
+            });
+        })
 });
 
 
@@ -95,9 +105,10 @@ router.post('/addproduct', async (req, res) => {
     let quantity = parseInt(req.body.quantity);
     let image_urls = req.body.prodURL;
     var new_url = [];
+
     for (var i = 0; i < image_urls.length; i++) {
         if (image_urls[i] != '/img/no-image.jpg') {
-            await cloudinary.v2.uploader.upload('./public/' + image_urls[i], { folder: "denoshop/products", use_filename: true }, function (error, result) { error ? console.log(error) : new_url.push(result.url);})
+            await cloudinary.v2.uploader.upload('./public/' + image_urls[i], { folder: "denoshop/products", use_filename: true }, function (error, result) { error ? console.log(error) : new_url.push(result.url); })
         } else {
             new_url.push('/img/no-image.jpg');
         }
@@ -115,7 +126,7 @@ router.post('/addproduct', async (req, res) => {
         fs.rmdirSync('./public/uploads', { recursive: true });
         alertMessage(res, 'success', 'Product succesfully added!', 'fas fa-check-circle', true);
         res.redirect('/inventory');
-    }).catch((err) => console.log(err));
+    }).catch((err) => { console.log(err); alertMessage(res, 'danger', 'Error! Check logs', 'fas fa-exclamation-circle', true); res.redirect('add'); });
 });
 
 
