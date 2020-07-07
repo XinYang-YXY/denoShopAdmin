@@ -80,7 +80,7 @@ router.put('/updatecategory/:id', (req, res) => {
             res.redirect('/category/update/' + req.params.id);
         } else {
             Category.update({
-                category_name
+                category:category_name
             }, {
                 where: {
                     id: req.params.id
