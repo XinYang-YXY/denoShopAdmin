@@ -36,13 +36,10 @@ require("dotenv").config();
  */
 const mainRoute = require("./routes/main");
 const analyticRoute = require("./routes/analytic");
+const apiRoute = require("./routes/api");
 const inventoryRoute = require("./routes/inventory");
-<<<<<<< HEAD
-const apiRoute = require('./routes/api');
-=======
 const bannerRoute = require("./routes/banner");
 const categoryRoute = require("./routes/category");
->>>>>>> develop
 // const videoRoute = require("./routes/video");
 
 // const { formatDate, radioCheck, checkboxFormatter } = require("./helpers/hbs");
@@ -167,15 +164,11 @@ app.use(function (req, res, next) {
 //  * */
 app.use("/", mainRoute); // mainRoute is declared to point to routes/main.js
 app.use("/analytics", analyticRoute);
-<<<<<<< HEAD
-app.use("/inventory", inventoryRoute);
 app.use("/api", apiRoute);
-=======
 app.use('/inventory', inventoryRoute);
 app.use('/banner', bannerRoute);
 app.use('/category', categoryRoute);
 // app.use("/video", videoRoute);
->>>>>>> develop
 // This route maps the root URL to any path defined in main.js
 
 /*
