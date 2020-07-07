@@ -6,6 +6,7 @@ const purchaseRecord = require("../models/PurchaseRecord");
 const cartItem = require("../models/CartItem");
 const hackingProduct = require("../models/HackingProduct");
 const deliveryInfo = require("../models/DeliveryInfo");
+const category = require("../models/Category");
 // Import all the models
 
 const setUpDB = (drop) => {
@@ -18,6 +19,7 @@ const setUpDB = (drop) => {
 			user.hasMany(purchaseRecord); // Define relationship
 			user.hasMany(cartItem);
 			user.hasMany(deliveryInfo);
+			category.hasMany(hackingProduct, {foreignKey: 'category'});
 
 			mySQLDB
 				.sync({

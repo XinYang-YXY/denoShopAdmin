@@ -81,8 +81,9 @@
                                     <label for="">Category</label>
                                     <select class="form-control" id="" name="category">
                                         {{#select inventory.category}}
-                                        <option value="Outfit">Outfit</option>
-                                        <option value="Tools">Tools</option>
+                                        {{#each category}}
+                                        <option value="{{category}}">{{category}}</option>
+                                        {{/each}}
                                         {{/select}}
                                     </select>
                                 </div>
