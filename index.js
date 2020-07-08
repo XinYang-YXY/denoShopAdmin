@@ -36,6 +36,7 @@ require("dotenv").config();
  */
 const mainRoute = require("./routes/main");
 const analyticRoute = require("./routes/analytic");
+const apiRoute = require("./routes/api");
 const inventoryRoute = require("./routes/inventory");
 const bannerRoute = require("./routes/banner");
 const categoryRoute = require("./routes/category");
@@ -101,6 +102,10 @@ app.use(express.urlencoded({ extended: false }));
 // Creates static folder for publicly accessible HTML, CSS and Javascript files
 app.use(express.static(path.join(__dirname, "public")));
 
+// serve node_modules to frontend
+// without using webpack or browserify
+app.use(express.static(path.join(__dirname, 'node_modules')));
+
 // Method override middleware to use other HTTP methods such as PUT and DELETE
 app.use(methodOverride("_method"));
 
@@ -159,6 +164,7 @@ app.use(function (req, res, next) {
 //  * */
 app.use("/", mainRoute); // mainRoute is declared to point to routes/main.js
 app.use("/analytics", analyticRoute);
+app.use("/api", apiRoute);
 app.use('/inventory', inventoryRoute);
 app.use('/banner', bannerRoute);
 app.use('/category', categoryRoute);

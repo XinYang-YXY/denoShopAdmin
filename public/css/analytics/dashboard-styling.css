@@ -1,15 +1,15 @@
-.kpi-title {
+.panel-title {
     font-size: 1em ;
     text-align: left;
 }
 
-.kpi-current {
+.panel-current {
     font-size: 3.5em;
     text-align: center;
     color: rgb(60, 197, 122);
 }
 
-.kpi-change {
+.panel-difference {
     font-size: 0.8em ;
     text-align: center;
 }
