@@ -6,13 +6,84 @@
             <div class="col-xl-8 col-lg-12">
                 <div class="row">
                     <div class="col border rounded shadow-sm m-1">
-                        <h4 id="prod-name-chart">Monthly Avg rating vs sold volume for Select Product</h4>
+                        <h4 id="prod-name-chart">Monthly Avg rating vs sold volume for - </h4>
                         <canvas id="rate-vol-chart"></canvas>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col border rounded shadow-sm m-1">
-                        <h4 id="prod-name-word">What customer say about Select Product</h4>
+                        <h4 id="prod-name-word"> - 's Overall Review</h4>
+                        <div class="row">
+                            <div class="col">
+                                <span class="p-2">Product Sentiment: </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="p-2">
+                                    <div class="progress">
+                                        <div class="progress-bar" id="posBar" style="background-color: #61C515;"></div>
+                                        <div class="progress-bar" id="neuBar" style="background-color: #157CC0;"></div>
+                                        <div class="progress-bar" id="negBar" style="background-color: #CD1313;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col">
+                                                <span id="posScore"> - %</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <span>Positive</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col">
+                                                <span id="neuScore"> - %</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <span>Neutral</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col">
+                                                <span id="negScore"> - %</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <span>Negative</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-7">
+                                <h6 class="p-2" id="sentiment" style="text-align: center;"> - </h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span class="p-2">Key Phases:</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p class="p-2" id="keyPhases"> - </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -32,7 +103,8 @@
                         {{#each unsold}}
                         <tr>
                             <td class="col-6">
-                                <span onclick="updateData({{id}}, '{{name}}');" style="text-decoration: underline;">{{name}}</span>
+                                <span onclick="updateData({{id}}, '{{name}}');"
+                                    style="text-decoration: underline;">{{name}}</span>
                             </td>
                             <td class="col-2">{{sold}}</td>
                             <td class="col-2">{{target}}</td>
@@ -122,8 +194,25 @@
                 chart.data.datasets[0].data = data[0];
                 chart.data.datasets[1].data = data[1];
                 chart.update();
+                document.getElementById('prod-name-chart').innerHTML = `Monthly Avg rating vs sold volume for ${name}`;
+                document.getElementById('prod-name-word').innerHTML = `${name}'s Overall Sentiment`;
             });
-        document.getElementById('prod-name-chart').innerHTML = `Monthly Avg rating vs sold volume for ${name}`;
-        document.getElementById('prod-name-word').innerHTML = `What customer say about ${name}`;
+        fetch(`/api/product-comment/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                let pos = parseFloat(data.score.positive) * 100;
+                let neu = parseFloat(data.score.neutral) * 100
+                let neg = parseFloat(data.score.negative) * 100;
+
+                document.getElementById('posBar').style.width = `${pos.toString()}%`;
+                document.getElementById('neuBar').style.width = `${neu.toString()}%`;
+                document.getElementById('negBar').style.width = `${neg.toString()}%`;
+                document.getElementById('sentiment').innerHTML = `${data.sentiment}`;
+                document.getElementById('posScore').innerHTML = `${pos}%`;
+                document.getElementById('neuScore').innerHTML = `${neu}%`;
+                document.getElementById('negScore').innerHTML = `${neg}%`;
+                document.getElementById('keyPhases').innerHTML = `${data.keyPhases}`;
+            });
     }
 </script>
