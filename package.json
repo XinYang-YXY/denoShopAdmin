@@ -18,6 +18,7 @@
 	},
 	"homepage": "https://github.com/XinYang-YXY/denoshop#readme",
 	"dependencies": {
+		"@azure/ai-text-analytics": "^1.0.0",
 		"@handlebars/allow-prototype-access": "^1.0.3",
 		"@sendgrid/mail": "^7.1.1",
 		"@stripe/react-stripe-js": "^1.1.2",
