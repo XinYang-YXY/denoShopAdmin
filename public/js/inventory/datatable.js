@@ -12,7 +12,7 @@ $(document).ready(function () {
             "text": "Print/Save as PDF",
             "exportOptions": {
                 "stripHtml": false,
-                "columns": [0, 1, 2, 3, 4, 5, 6, 7]
+                "columns": [0, 1, 2, 3, 4, 5, 6, 7,8]
             }
         }],
         "columns": [
@@ -23,6 +23,7 @@ $(document).ready(function () {
             null,
             null,
             { "orderable": false },
+            null,
             null,
             { "orderable": false }
         ]

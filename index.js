@@ -70,6 +70,7 @@ const app = express();
 const { multiply } = require("./helpers/hbs");
 const { equal, noEqual } = require("./helpers/hbs");
 const { convert_to_json, readMore, formatDate, select} = require("./helpers/inventory/inventory_helper");
+const { Op } = require("sequelize");
 app.engine(
 	"handlebars",
 	exphbs({
@@ -157,6 +158,19 @@ app.use((req, res, next) => {
 app.use(function (req, res, next) {
 	next();
 });
+
+// This will be called every request
+Inventory = require("./models/HackingProduct")
+app.all("*",function(req, res, next){
+	Inventory.update({
+        status: "Inactive"
+    }, {
+        where: {
+			[Op.or]:[{category: null}, {quantity: 0}]
+        }
+    })
+	next();
+})
 
 // Use Routes
 /*

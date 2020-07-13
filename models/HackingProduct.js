@@ -6,7 +6,7 @@ const HackingProduct = db.define("hackingProduct", {
 		type: Sequelize.FLOAT,
 	},
 	imageFile: {
-		type: Sequelize.STRING,
+		type: Sequelize.STRING(500),
 	},
 	dateAdded: {
 		type: Sequelize.DATE,
@@ -17,12 +17,12 @@ const HackingProduct = db.define("hackingProduct", {
 	description: {
 		type: Sequelize.STRING(2000),
 	},
-	category: {
-		type: Sequelize.STRING,
-	},
 	quantity: {
 		type: Sequelize.INTEGER,
 	},
+	status: {
+		type: Sequelize.STRING,
+	}
 });
 
 module.exports = HackingProduct;
