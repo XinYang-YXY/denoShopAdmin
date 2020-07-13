@@ -10,6 +10,7 @@ const productRating = require("../models/ProductRatings");
 const userRating = require("../models/UserRating");
 const deliveryInfo = require("../models/DeliveryInfo");
 const category = require("../models/Category");
+const chat = require("../models/Chat");
 // Import all the models
 
 const setUpDB = (drop) => {

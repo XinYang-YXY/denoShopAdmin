@@ -40,6 +40,7 @@ const apiRoute = require("./routes/api");
 const inventoryRoute = require("./routes/inventory");
 const bannerRoute = require("./routes/banner");
 const categoryRoute = require("./routes/category");
+const chatRoute = require("./routes/chat");
 // const videoRoute = require("./routes/video");
 
 // const { formatDate, radioCheck, checkboxFormatter } = require("./helpers/hbs");
@@ -168,6 +169,7 @@ app.use("/api", apiRoute);
 app.use('/inventory', inventoryRoute);
 app.use('/banner', bannerRoute);
 app.use('/category', categoryRoute);
+app.use("/chat",chatRoute);
 // app.use("/video", videoRoute);
 // This route maps the root URL to any path defined in main.js
 

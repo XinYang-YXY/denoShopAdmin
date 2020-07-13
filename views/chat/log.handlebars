@@ -1,0 +1,63 @@
+{{!-- <div class="content-section" style="display: none;"></div>
+        <h1 class="shopFontTitle">Live Chat</h1>
+        <form id="send-container">
+            <div id="message-container"></div>
+            <input type='text' id='message-input'>
+            <button type="submit" id="send-button">Send</button>
+        </form> --}}
+<div class="wrapper">
+  {{>_sidemenu}}
+<div class="container py-5 px-4">
+  <div class="row">
+  <header class="text-center col-11">
+    <h3 style="font-size: 250%;" >Customer Support Live Chat</h1>
+  </header>
+  <button class="btn btn-link" onclick='window.location.href = "http://localhost:5000/chat/viewLogs"'><i class="fas fa-sign-out-alt"></i></button>
+  </div>
+    <!-- Chat Box-->
+    <div class="px-0 shadow p-3 mb-5 bg-white rounded">
+      <div class="px-4 py-5 chat-box bg-white" id="message-container">
+        <p class="small font-italic text-muted">Please wait, an agent will join shortly</p>
+        {{#each msgList}}
+        {{#if (equal this.position 'client')}}
+        <!-- Sender Message-->
+          <div class="media-body w-50 mb-3">
+            <div class="bg-light rounded py-2 px-3 mb-2">
+              <p class="text-small mb-0 text-dark">{{this.message}}</p>
+            </div>
+            <p class="small text-muted">{{this.dateTime}}</p>
+          </div>
+        {{else if (equal this.position 'staff')}} 
+        <!-- Reciever Message-->
+        <div class="media w-50 ml-auto mb-3">
+          <div class="media-body">
+            <div class="bg-primary rounded py-2 px-3 mb-2">
+              <p class="text-small mb-0 text-white">{{this.message}}</p>
+            </div>
+            <p class="small text-muted">{{this.dateTime}}</p>
+          </div>
+        </div>
+        {{else if (equal this.position 'staffJoin')}} 
+        <div>
+          <p class="small font-italic text-muted">{{this.message}} <br> {{this.dateTime}}</p>
+        </div>
+        {{else if (equal this.position 'clientJoin')}} 
+        <div>
+          <p class="small font-italic text-muted">{{this.message}} <br> {{this.dateTime}}</p>
+        </div>
+        {{else if (equal this.position 'staffLeave')}} 
+        <div>
+          <p class="small font-italic text-muted">{{this.message}} <br> {{this.dateTime}}</p>
+        </div>
+        {{else if (equal this.position 'clientLeave')}} 
+        <div>
+          <p class="small font-italic text-muted">{{this.message}} <br> {{this.dateTime}}</p>
+        </div>
+        {{/if}}
+        {{/each}}
+
+      </div>
+
+    </div>
+  </div>
+</div>  
