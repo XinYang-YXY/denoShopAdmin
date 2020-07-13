@@ -45,7 +45,7 @@ server.on("connection", (socket) => {
                     socket.emit('redirectRoom', room.id)
                 })
             } else {
-                socket.emit('redirect','oneroom')
+                socket.emit('oneroom',chat.id)
             }
         });
         // rooms[roomID] = { users: {} }
@@ -68,6 +68,7 @@ server.on("connection", (socket) => {
             }
         }).then((chat) => {
             if (!(chat)) {
+                console.log('error');
                 socket.emit('redirect','error')
             }
         })
