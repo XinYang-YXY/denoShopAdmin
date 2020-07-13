@@ -40,6 +40,7 @@ const apiRoute = require("./routes/api");
 const inventoryRoute = require("./routes/inventory");
 const bannerRoute = require("./routes/banner");
 const categoryRoute = require("./routes/category");
+const chatRoute = require("./routes/chat");
 // const videoRoute = require("./routes/video");
 
 // const { formatDate, radioCheck, checkboxFormatter } = require("./helpers/hbs");
@@ -69,6 +70,7 @@ const app = express();
 const { multiply } = require("./helpers/hbs");
 const { equal, noEqual } = require("./helpers/hbs");
 const { convert_to_json, readMore, formatDate, select} = require("./helpers/inventory/inventory_helper");
+const { Op } = require("sequelize");
 app.engine(
 	"handlebars",
 	exphbs({
@@ -157,6 +159,19 @@ app.use(function (req, res, next) {
 	next();
 });
 
+// This will be called every request
+Inventory = require("./models/HackingProduct")
+app.all("*",function(req, res, next){
+	Inventory.update({
+        status: "Inactive"
+    }, {
+        where: {
+			[Op.or]:[{category: null}, {quantity: 0}]
+        }
+    })
+	next();
+})
+
 // Use Routes
 /*
  * Defines that any root URL with '/' that Node JS receives request from, for eg. http://localhost:5000/, will be handled by
@@ -168,6 +183,7 @@ app.use("/api", apiRoute);
 app.use('/inventory', inventoryRoute);
 app.use('/banner', bannerRoute);
 app.use('/category', categoryRoute);
+app.use("/chat",chatRoute);
 // app.use("/video", videoRoute);
 // This route maps the root URL to any path defined in main.js
 

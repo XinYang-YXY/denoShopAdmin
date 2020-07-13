@@ -104,29 +104,28 @@ router.post('/addproduct', async (req, res) => {
     let category = req.body.category;
     let quantity = parseInt(req.body.quantity);
     let image_urls = req.body.prodURL;
+    let status = req.body.status;
     var new_url = [];
 
-    for (var i = 0; i < image_urls.length; i++) {
-        if (image_urls[i] != '/img/no-image.jpg') {
-            await cloudinary.v2.uploader.upload('./public/' + image_urls[i], { folder: "denoshop/products", use_filename: true }, function (error, result) { error ? console.log(error) : new_url.push(result.url); })
-        } else {
-            new_url.push('/img/no-image.jpg');
+    if (quantity > 0) {
+        for (var i = 0; i < image_urls.length; i++) {
+            if (image_urls[i] != '/img/no-image.jpg') {
+                await cloudinary.v2.uploader.upload('./public/' + image_urls[i], { folder: "denoshop/products", use_filename: true }, function (error, result) { error ? console.log(error) : new_url.push(result.url); })
+            } else {
+                new_url.push('/img/no-image.jpg');
+            }
         }
+        let imageFile = JSON.stringify(new_url);
+        Inventory.create({
+            price, imageFile, dateAdded, title, description, category, quantity, status
+        }).then(() => {
+            fs.rmdirSync('./public/uploads', { recursive: true });
+            alertMessage(res, 'success', 'Product succesfully added!', 'fas fa-check-circle', true);
+            res.redirect('/inventory');
+        }).catch((err) => { console.log(err); alertMessage(res, 'danger', 'Error! Check logs', 'fas fa-exclamation-circle', true); res.redirect('add'); });
+    }else{
+        alertMessage(res, 'danger', 'Invalid format', 'fas fa-exclamation-circle', true);
     }
-    let imageFile = JSON.stringify(new_url);
-    Inventory.create({
-        price,
-        imageFile,
-        dateAdded,
-        title,
-        description,
-        category,
-        quantity
-    }).then(() => {
-        fs.rmdirSync('./public/uploads', { recursive: true });
-        alertMessage(res, 'success', 'Product succesfully added!', 'fas fa-check-circle', true);
-        res.redirect('/inventory');
-    }).catch((err) => { console.log(err); alertMessage(res, 'danger', 'Error! Check logs', 'fas fa-exclamation-circle', true); res.redirect('add'); });
 });
 
 
@@ -159,8 +158,10 @@ router.put('/updateproduct/:id', async (req, res) => {
     let description = req.body.description.slice(0, 1999);
     let category = req.body.category;
     let quantity = parseInt(req.body.quantity);
+    let status = req.body.status;
     var image_urls = [req.body.prodURL1, req.body.prodURL2, req.body.prodURL3, req.body.prodURL4];
     var new_url = [];
+
     for (var i = 0; i < image_urls.length; i++) {
         if (image_urls[i].startsWith('http://res.cloudinary.com')) {
             new_url.push(image_urls[i])
@@ -172,13 +173,7 @@ router.put('/updateproduct/:id', async (req, res) => {
     }
     let imageFile = JSON.stringify(new_url);
     Inventory.update({
-        price,
-        imageFile,
-        dateAdded,
-        title,
-        description,
-        category,
-        quantity
+        price, imageFile, dateAdded, title, description, category, quantity, status
     }, {
         where: {
             id: req.params.id

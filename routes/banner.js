@@ -74,7 +74,6 @@ router.get('/update/:id', (req, res) => {
 });
 
 
-
 router.post('/upload', (req, res) => {
     if (!fs.existsSync('./public/uploads/')) {
         fs.mkdirSync('./public/uploads/');
@@ -86,27 +85,7 @@ router.post('/upload', (req, res) => {
             if (req.file === undefined) {
                 res.json({ file: '/img/no-image.jpg', err: err });
             } else {
-                // let imagePath = req.file.destination + req.file.filename;
-                // sharp(imagePath).resize({
-                //     fit: sharp.fit.fill,
-                //     height: 333,
-                //     width: 1110
-                // }).toBuffer(function (err, buf) {
-                //     if (err) {
-                //         console.log(err);
-                //     }
-                //     else {
-                //         const image = buf.toString('base64');
-                //         fs.writeFile(imagePath, image, { encoding: 'base64' }, function (err) {
-                //             if (err) {
-                //                 console.log(err);
-                //             } else {
                 res.json({ file: `/uploads/${req.file.filename}` });
-                //             };
-                //         });
-                //     }
-                // });
-
             }
         }
     });
@@ -119,12 +98,14 @@ router.post('/addBanner', async (req, res) => {
     let dateAdded = moment(req.body.dateAdded, 'DD/MM/YYYY');
     let image_url = req.body.bannerURL;
     let imageFile = "";
+
     if (image_url != '/img/no-image.jpg') {
         await cloudinary.v2.uploader.upload('./public/' + image_url, { folder: "denoshop/banners", use_filename: true }, function (error, result) {
             error ? console.log(error) :
                 imageFile = cloudinary.image(result.public_id, { secure: true, transformation: [{ width: 1110, height: 333, crop: "scale" }] }).replace("<img src='", '').replace("' />", '');
         })
     }
+    
     Banner.create({
         title,
         imageFile,
@@ -175,7 +156,7 @@ router.put('/updatebanner/:id', async (req, res) => {
     let dateAdded = moment(req.body.dateAdded, 'DD/MM/YYYY');
     let imageFile = req.body.bannerURL;
 
-    if ((!imageFile.startsWith("http://res.cloudinary.com")) && (!imageFile.startsWith('/img/no-image.jpg'))) {
+    if ((!imageFile.startsWith("https://res.cloudinary.com")) && (!imageFile.startsWith('/img/no-image.jpg'))) {
         await cloudinary.v2.uploader.upload('./public/' + imageFile, { folder: "denoshop/banners", use_filename: true }, function (error, result) {
             error ? console.log(error) : imageFile = cloudinary.image(result.public_id, { secure: true, transformation: [{ width: 1110, height: 333, crop: "scale" }] }).replace("<img src='", '').replace("' />", '')})
     }

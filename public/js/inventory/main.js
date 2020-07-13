@@ -74,3 +74,14 @@ function remove_img(a){
     imgurl.value = '/img/no-image.jpg';
 }
 
+
+function formValidation(a){
+    let submit = document.getElementById('submit_btn');
+
+    if (document.getElementById(a).value <= 0){
+        submit.disabled = true;
+    }else{
+        submit.disabled = false;
+    }
+}
+

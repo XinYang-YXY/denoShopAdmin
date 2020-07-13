@@ -1,0 +1,47 @@
+<div class="wrapper">
+  {{>_sidemenu}}
+  <div class="listContainer flex-grow-1">
+    {{> flashMsg/flashmsg}} 
+    <h3 class="m-4">Chat Logs</h3>
+    <table class="table table-striped container">
+      <thead>
+        <tr class="row ml-4 mr-4">
+          <th class="col">Chat ID</th>
+          <th class="col">Request Timing</th>
+          <th class="col">Client ID</th>
+          <th class="col">Client Name</th>
+          <th class="col">Email</th>
+          <th class="col">Phone Number</th>
+          <th class="col">Department</th>
+          <th class="col">Problem Description</th>
+          <th class="col">Urgent</th>
+          <th class="col">Staff Name</th>
+          <th class="col"></th>
+        </tr>
+      </thead>
+      <tbody id="requestTable">
+        {{#each chats}}
+        <tr class="row ml-4 mr-4">
+          <td class="col">{{this.id}}</td>
+          <td class="col">{{this.RequestTime}}</td>
+          <td class="col">{{this.ClientID}}</td>
+          <td class="col">{{this.ClientName}}</td>
+          <td class="col">{{this.ClientEmail}}</td>
+          <td class="col">{{this.ClientPhone}}</td>
+          <td class="col">{{this.RequestDepartment}}</td>
+          <td class="col">{{this.RequestDescription}}</td>
+          {{#if (equal this.RequestUrgent 1)}}
+          <td class="col"><i class="fas fa-check"></i></td>
+          {{else}}
+          <td class="col"></td>
+          {{/if}}
+          <td class="col">{{this.StaffName}}</td>
+          <td class="col">
+            <button class="btn btn-success mr-2" onclick='window.location.href = "http://localhost:5000/chat/log/{{this.id}}"'>View Chat Log</button>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

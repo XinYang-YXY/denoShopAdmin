@@ -69,12 +69,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">Price($)</label>
-                                    <input type="text" name="price" id="" class="form-control"
+                                    <input type="number" step="0.01" name="price" id="price" class="form-control" onchange="formValidation('price')"
                                         value="{{inventory.price}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Quantity</label>
-                                    <input type="text" name="quantity" id="" class="form-control"
+                                    <input type="number" name="quantity" id="quantity" class="form-control" onchange="formValidation('quantity')"
                                         value="{{inventory.quantity}}">
                                 </div>
                                 <div class="form-group">
@@ -84,6 +84,15 @@
                                         {{#each category}}
                                         <option value="{{category}}">{{category}}</option>
                                         {{/each}}
+                                        {{/select}}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Status</label>
+                                    <select class="form-control" id="" name="status">
+                                        {{#select inventory.status}}
+                                        <option value="Active">Active</option>
+                                        <option value="Inactive">Inactive</option>
                                         {{/select}}
                                     </select>
                                 </div>
@@ -99,7 +108,7 @@
                         <div class="row d-flex flex-grow-1 text-right align-items-end">
                             <div class="col-md-12">
                                 <a href="/inventory" class="btn btn-secondary">Back</a>
-                                <button type="submit" name="" id="" class="btn btn-success">Update</button>
+                                <button type="submit" name="" id="submit_btn" class="btn btn-success">Update</button>
                             </div>
                         </div>
                     </div>
