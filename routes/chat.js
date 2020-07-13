@@ -9,7 +9,9 @@ var request = {}
 
 router.get("/viewRequests", (req, res) => {
 	res.render("chat/viewRequests.handlebars", {
+        title: "Chat Requests",
         style: { sidemenu: "sidemenu-styling.css", dashboard: "dashboard-styling.css", text: "chat/acceptChat.css" },
+        script: { text: "sidemenu-script.js" }
 	});
 });
 
@@ -34,9 +36,11 @@ router.get("/room/:room", (req, res) => {
         }
     });
 	res.render("chat/room.handlebars", {
+        title: `Chat Room ${req.params.room}`,
 		style: { sidemenu: "sidemenu-styling.css", dashboard: "dashboard-styling.css", text: "chat/room.css" },
         roomName: req.params.room,
         msgList,
+        script: { text: "sidemenu-script.js" }
     });
 });
 
@@ -77,8 +81,10 @@ router.get("/viewLogs" , (req, res) => {
         raw: true,
     }) .then(chats => {
         res.render("chat/viewLogs.handlebars", {
+            title: "Chat Logs",
             style: { sidemenu: "sidemenu-styling.css", dashboard: "dashboard-styling.css", text: "chat/acceptChat.css" },
-            chats : chats
+            chats : chats,
+            script: { text: "sidemenu-script.js" }
         });
     })
 })
@@ -104,9 +110,11 @@ router.get("/log/:id" , (req, res) => {
         }
     });
 	res.render("chat/log.handlebars", {
+        title: `Chat Log ${req.params.id}`,
 		style: { sidemenu: "sidemenu-styling.css", dashboard: "dashboard-styling.css", text: "chat/room.css" },
         roomName: req.params.room,
         msgList,
+        script: { text: "sidemenu-script.js" }
     });
 });
 module.exports = router;
