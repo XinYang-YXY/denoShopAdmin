@@ -1,26 +1,28 @@
 <script defer src="http://localhost:8000/socket.io/socket.io.js"></script>
 <script defer src="/js/chat/script.js"></script>
 <div class="wrapper">
-{{>_sidemenu}}
-<div class="listContainer flex-grow-1">
-{{> flashMsg/flashmsg}}
-<h3 class="m-4">Chat Requests</h3>
-<table class="table table-striped container">
-  <thead>
-    <tr class="row ml-4 mr-4">
-      <th class="col">Request Timing</th>
-      <th class="col">UserID</th>
-      <th class="col">Name</th>
-      <th class="col">Email</th>
-      <th class="col">Phone Number</th>
-      <th class="col">Department</th>
-      <th class="col">Problem Description</th>
-      <th class="col">Urgent</th>
-      <th class="col"></th>
-    </tr>
-  </thead>
-  <tbody id="requestTable">
-  </tbody>
-</table>
-</div>
+  {{>_sidemenu}}
+  <div id="content">
+    <div class="listContainer flex-grow-1">
+      {{> flashMsg/flashmsg}}
+      <h3 class="m-4">Chat Requests</h3>
+      <table class="table table-striped container">
+        <thead>
+          <tr class="row ml-4 mr-4">
+            <th class="col">Request Timing</th>
+            <th class="col">UserID</th>
+            <th class="col">Name</th>
+            <th class="col">Email</th>
+            <th class="col">Phone Number</th>
+            <th class="col">Department</th>
+            <th class="col">Problem Description</th>
+            <th class="col">Urgent</th>
+            <th class="col"></th>
+          </tr>
+        </thead>
+        <tbody id="requestTable">
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
