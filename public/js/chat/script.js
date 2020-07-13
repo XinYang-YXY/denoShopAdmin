@@ -55,10 +55,12 @@ socket.on('user-disconnected', data=> {
     appendConnectionMessage(data.message, data.dateTime)
 })
 
+socket.on('oneroom' , roomid => {
+    window.location.href = `http://www.localhost:5000/chat/oneroom/${roomid}`;
+})
+
 socket.on('redirect', message => {
-    if (message == 'oneroom'){
-        window.location.href = "http://www.localhost:5000/chat/redirect/oneroom";
-    } else if (message == 'roomend'){
+    if (message == 'roomend'){
         window.location.href = "http://www.localhost:5000/chat/redirect/roomend";
     } else if (message == 'error'){
         window.location.href = "http://www.localhost:5000/chat/redirect/error";
@@ -93,7 +95,8 @@ function appendRequest(request) {
     deleteButton.className= 'btn btn-danger';
     deleteButton.innerText = 'Delete room'
     deleteButton.onclick = function() {socket.emit('close-room',request[8]);
-    location.reload();};
+        location.reload();
+    };
     buttonsElement.append(deleteButton);
     tableRow.append(buttonsElement);
     requestTable.append(tableRow);

@@ -24,36 +24,40 @@ router.get("/room/:room", (req, res) => {
         },
         attributes: ['Messages'],
     }) .then(function(room){
-        if (room) {
+        console.log(room)
+        if (!(room)) {
+            return res.redirect('/chat/viewRequests')
+        } else {
             if (room.Messages != null) {
                 let messages = room.Messages.split('-')
                 for (i=0; i < messages.length; i++) {
                     msgList.push(JSON.parse(messages[i]));
                 }
-            } 
-        } else {
-            return res.redirect('/chat')
+            }
+            res.render("chat/room.handlebars", {
+                title: `Chat Room ${req.params.room}`,
+                style: { sidemenu: "sidemenu-styling.css", dashboard: "dashboard-styling.css", text: "chat/room.css" },
+                roomName: req.params.room,
+                msgList,
+                script: { text: "sidemenu-script.js" }
+            });
         }
-    });
-	res.render("chat/room.handlebars", {
-        title: `Chat Room ${req.params.room}`,
-		style: { sidemenu: "sidemenu-styling.css", dashboard: "dashboard-styling.css", text: "chat/room.css" },
-        roomName: req.params.room,
-        msgList,
-        script: { text: "sidemenu-script.js" }
     });
 });
 
+router.get("/oneroom/:roomid" , (req, res) => {
+    var alert = res.flashMessenger.danger('Only one live support chat can be active at any time');
+        //Make the alert box dismissable
+        alert.isDismissible = true;
+        alert.titleIcon = "fas fa-exclamation-triangle";
+        //set an font awesome icon
+        alert.addMessage({chatid: req.params.roomid ,type:'return'});
+        alert.addMessage({chatid: req.params.roomid ,type: 'delete'});
+        res.redirect("/chat/viewRequests");
+})
+
 router.get("/redirect/:message" , (req, res) => {
-    if (req.params.message == 'oneroom') {
-        alertMessage(
-            res,
-            "danger",
-            "Only one live support chat can be active at any time",
-            "fas fa-exclamation-triangle",
-            true
-        ); 
-    } else if (req.params.message == 'roomend'){
+    if (req.params.message == 'roomend'){
         alertMessage(
             res,
             "danger",
