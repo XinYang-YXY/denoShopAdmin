@@ -1,4 +1,4 @@
-function docReady(cb){
+function docReady(cb) {
     if (document.readyState === "complete" || document.readyState === "interactive") {
         setTimeout(cb, 1);
     } else {
@@ -6,12 +6,12 @@ function docReady(cb){
     }
 }
 
-docReady(function(){
+docReady(function () {
     let submit = document.getElementById('submit_btn');
-    
-    if (document.getElementById('prodURL1').value == ""){
+
+    if (document.getElementById('prodURL1').value == "") {
         submit.disabled = true;
-    }else{
+    } else {
         submit.disabled = false;
     }
 })
@@ -52,10 +52,10 @@ $('#prodUpload').on('change', function () {
 });
 
 
-function prodUpload(id, upload, img, prodURL){
-    $('#'+id).on('change', function () {
+function prodUpload(id, upload, img, prodURL) {
+    $('#' + id).on('change', function () {
         let formdata = new FormData();
-        let image = $("#"+id)[0].files[0];
+        let image = $("#" + id)[0].files[0];
         formdata.append(id, image);
         $.ajax({
             url: upload,
@@ -64,8 +64,8 @@ function prodUpload(id, upload, img, prodURL){
             contentType: false,
             processData: false,
             'success': (data) => {
-                $('#'+ img).attr('src', data.file);
-                $('#'+ prodURL).attr('value', data.file);
+                $('#' + img).attr('src', data.file);
+                $('#' + prodURL).attr('value', data.file);
                 if (data.err) {
                     $('#prodErr').show();
                     $('#prodErr').text(data.err.message);
@@ -85,21 +85,31 @@ prodUpload('prodUpload4', '/inventory/upload4', 'img4', 'prodURL4');
 prodUpload('bannerUpload', '/banner/upload', 'banner_img', 'bannerURL');
 
 
-function remove_img(a){
-    var img = document.getElementById('img'+a);
-    var imgurl = document.getElementById('prodURL'+a)
+function remove_img(a) {
+    var img = document.getElementById('img' + a);
+    var imgurl = document.getElementById('prodURL' + a)
     img.src = '/img/no-image.jpg';
     imgurl.value = '/img/no-image.jpg';
 }
 
 
-function formValidation(a){
+function formValidation(a) {
     let submit = document.getElementById('submit_btn');
 
-    if (document.getElementById(a).value <= 0){
-        submit.disabled = true;
-    }else{
-        submit.disabled = false;
+    switch(a){
+        case "quantity":
+            if ((document.getElementById(a).value <= 0) || (document.getElementById(a).value.toString().lastIndexOf(".") != -1)) {
+                submit.disabled = true;
+            } else {
+                submit.disabled = false;
+            }
+            break;
+        case "price":
+            if (document.getElementById(a).value <= 0) {
+                submit.disabled = true;
+            } else {
+                submit.disabled = false;
+            }
+            break;
     }
 }
-
