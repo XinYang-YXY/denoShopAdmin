@@ -160,17 +160,17 @@ app.use(function (req, res, next) {
 });
 
 // This will be called every request
-Inventory = require("./models/HackingProduct")
-app.all("*",function(req, res, next){
-	Inventory.update({
-        status: "Inactive"
-    }, {
-        where: {
-			[Op.or]:[{category: null}, {quantity: 0}]
-        }
-    })
-	next();
-})
+// Inventory = require("./models/HackingProduct")
+// app.all("*",function(req, res, next){
+// 	Inventory.update({
+//         status: "Inactive"
+//     }, {
+//         where: {
+// 			[Op.or]:[{category: null}, {quantity: 0}]
+//         }
+//     })
+// 	next();
+// })
 
 // Use Routes
 /*

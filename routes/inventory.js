@@ -107,25 +107,23 @@ router.post('/addproduct', async (req, res) => {
     let status = req.body.status;
     var new_url = [];
 
-    if (quantity > 0) {
-        for (var i = 0; i < image_urls.length; i++) {
-            if (image_urls[i] != '/img/no-image.jpg') {
-                await cloudinary.v2.uploader.upload('./public/' + image_urls[i], { folder: "denoshop/products", use_filename: true }, function (error, result) { error ? console.log(error) : new_url.push(result.url); })
-            } else {
-                new_url.push('/img/no-image.jpg');
-            }
+
+    for (var i = 0; i < image_urls.length; i++) {
+        if (image_urls[i] != '/img/no-image.jpg') {
+            await cloudinary.v2.uploader.upload('./public/' + image_urls[i], { folder: "denoshop/products", use_filename: true }, function (error, result) { error ? console.log(error) : new_url.push(result.url); })
+        } else {
+            new_url.push('/img/no-image.jpg');
         }
-        let imageFile = JSON.stringify(new_url);
-        Inventory.create({
-            price, imageFile, dateAdded, title, description, category, quantity, status
-        }).then(() => {
-            fs.rmdirSync('./public/uploads', { recursive: true });
-            alertMessage(res, 'success', 'Product succesfully added!', 'fas fa-check-circle', true);
-            res.redirect('/inventory');
-        }).catch((err) => { console.log(err); alertMessage(res, 'danger', 'Error! Check logs', 'fas fa-exclamation-circle', true); res.redirect('add'); });
-    }else{
-        alertMessage(res, 'danger', 'Invalid format', 'fas fa-exclamation-circle', true);
     }
+    let imageFile = JSON.stringify(new_url);
+    Inventory.create({
+        price, imageFile, dateAdded, title, description, category, quantity, status
+    }).then(() => {
+        fs.rmdirSync('./public/uploads', { recursive: true });
+        alertMessage(res, 'success', 'Product succesfully added!', 'fas fa-check-circle', true);
+        res.redirect('/inventory');
+    }).catch((err) => { console.log(err); alertMessage(res, 'danger', 'Error! Check logs', 'fas fa-exclamation-circle', true); res.redirect('add'); });
+
 });
 
 
