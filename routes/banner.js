@@ -10,6 +10,7 @@ const { single_upload_banner } = require('../helpers/inventory/multer_Image');
 
 var original_banner_url = "";
 
+
 router.get('/test', (req, res) => {
     let a = [];
     Banner.findAll({
@@ -51,7 +52,7 @@ router.get('/add', (req, res) => {
     res.render('banner/add_banner', {
         title: "Add Banner",
         style: { sidemenu: "sidemenu-styling.css", dashboard: "dashboard-styling.css", text: "inventory/create_products.css" },
-        script: { sidemenu: "sidemenu-script.js", js: "/inventory/main.js" }
+        script: { sidemenu: "sidemenu-script.js", js: "/inventory/banner.js" }
     });
 });
 
@@ -66,7 +67,7 @@ router.get('/update/:id', (req, res) => {
         res.render('banner/update_banner', {
             banner: banner,
             style: { sidemenu: "sidemenu-styling.css", dashboard: "dashboard-styling.css", text: "inventory/update_products.css" },
-            script: { sidemenu: "sidemenu-script.js", js: "/inventory/main.js" },
+            script: { sidemenu: "sidemenu-script.js", js: "/inventory/banner.js" },
             title: "Update Banner"
         });
 
@@ -80,10 +81,10 @@ router.post('/upload', (req, res) => {
     }
     single_upload_banner(req, res, (err) => {
         if (err) {
-            res.json({ file: '/img/no-image.jpg', err: err });
+            res.json({ file: '/img/placeholder-banner.png', err: err });
         } else {
             if (req.file === undefined) {
-                res.json({ file: '/img/no-image.jpg', err: err });
+                res.json({ file: '/img/placeholder-banner.png', err: err });
             } else {
                 res.json({ file: `/uploads/${req.file.filename}` });
             }
@@ -105,7 +106,7 @@ router.post('/addBanner', async (req, res) => {
                 imageFile = cloudinary.image(result.public_id, { secure: true, transformation: [{ width: 1110, height: 333, crop: "scale" }] }).replace("<img src='", '').replace("' />", '');
         })
     }
-    
+
     Banner.create({
         title,
         imageFile,

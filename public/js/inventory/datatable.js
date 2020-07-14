@@ -36,18 +36,9 @@ $(document).ready(function () {
         // "columnDefs": [
         //     { "orderable": false, "targets": [1, 6, 8] }
         // ],
-        "dom": "<'row'<'col-sm-12 col-md-6' B>>" +
-            "<'row'<'col-sm-12'tr>>" +
+        "dom":"<'row'<'col-sm-12'tr>>" +
             "<'row mt-5'<'col-sm-12 col-md-5'l><'col-sm-12 col-md-7'p>>" +
             "<'row'<'col-sm-12 col-md-12 mt-10' i>>",
-        "buttons": [{
-            "extend": "print",
-            "text": "Print/Save as PDF",
-            "exportOptions": {
-                "stripHtml": false,
-                "columns": [0, 1, 2, 3,4]
-            }
-        }],
         "columns": [
             null,
             { "orderable": false },

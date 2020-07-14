@@ -1,3 +1,21 @@
+function docReady(cb){
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+        setTimeout(cb, 1);
+    } else {
+        document.addEventListener("DOMContentLoaded", cb);
+    }
+}
+
+docReady(function(){
+    let submit = document.getElementById('submit_btn');
+    
+    if (document.getElementById('prodURL1').value == ""){
+        submit.disabled = true;
+    }else{
+        submit.disabled = false;
+    }
+})
+
 $('#prodUpload').on('change', function () {
     let formdata = new FormData();
     let image0 = $("#prodUpload")[0].files[0];
