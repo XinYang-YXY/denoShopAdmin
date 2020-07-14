@@ -33,9 +33,6 @@ $(document).ready(function () {
     });
 
     var banner_table = $('#banner_table').DataTable({
-        // "columnDefs": [
-        //     { "orderable": false, "targets": [1, 6, 8] }
-        // ],
         "dom":"<'row'<'col-sm-12'tr>>" +
             "<'row mt-5'<'col-sm-12 col-md-5'l><'col-sm-12 col-md-7'p>>" +
             "<'row'<'col-sm-12 col-md-12 mt-10' i>>",
@@ -53,9 +50,6 @@ $(document).ready(function () {
     });
 
     var category_table = $('#category_table').DataTable({
-        // "columnDefs": [
-        //     { "orderable": false, "targets": [1, 6, 8] }
-        // ],
         "dom":"<'row'<'col-sm-12'tr>>" +
             "<'row mt-5'<'col-sm-12 col-md-5'l><'col-sm-12 col-md-7'p>>" +
             "<'row'<'col-sm-12 col-md-12 mt-10' i>>",
@@ -67,6 +61,22 @@ $(document).ready(function () {
     });
     $('#category_search').on('keyup', function () {
         category_table.search(this.value).draw();
+    });
+
+    var codes_table = $('#codes_table').DataTable({
+        "dom":"<'row'<'col-sm-12'tr>>" +
+            "<'row mt-5'<'col-sm-12 col-md-5'l><'col-sm-12 col-md-7'p>>" +
+            "<'row'<'col-sm-12 col-md-12 mt-10' i>>",
+        "columns": [
+            null,
+            null,
+            null,
+            null,
+            { "orderable": false }
+        ]
+    });
+    $('#codes_search').on('keyup', function () {
+        codes_table.search(this.value).draw();
     });
 });
 
