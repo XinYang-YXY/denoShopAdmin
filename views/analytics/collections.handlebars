@@ -195,7 +195,7 @@
                 chart.data.datasets[1].data = data[1];
                 chart.update();
                 document.getElementById('prod-name-chart').innerHTML = `Monthly Avg rating vs sold volume for ${name}`;
-                document.getElementById('prod-name-word').innerHTML = `${name}'s Overall Sentiment`;
+                document.getElementById('prod-name-word').innerHTML = `${name}'s Overall Review`;
             });
         fetch(`/api/product-comment/${id}`)
             .then(res => res.json())
