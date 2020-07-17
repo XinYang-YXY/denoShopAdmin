@@ -78,23 +78,23 @@ router.put('/updatecodes/:id', (req, res) => {
 
 
 router.get('/delete/:id', (req, res) => {
-    let categoryId = req.params.id;
-    Category.findOne({
+    let codesID = req.params.id;
+    Codes.findOne({
         where: {
-            id: categoryId
+            id: codesID
         }
-    }).then((category) => {
-        if (category === null) {
+    }).then((codes) => {
+        if (codes === null) {
             // alertMessage(res, 'danger', 'Access Denied', 'fas fa-exclamation-circle', true);
             // res.redirect('/logout');
         } else {
-            Category.destroy({
+            Codes.destroy({
                 where: {
-                    id: categoryId
+                    id: codesID
                 }
             }).then(() => {
-                alertMessage(res, 'success', 'Category succesfully deleted!', 'far fa-trash-alt', true);
-                res.redirect('/category');
+                alertMessage(res, 'success', 'Code succesfully deleted!', 'far fa-trash-alt', true);
+                res.redirect('/codes');
             }).catch((err) => console.log(err));
         }
     }).catch(err => console.log(err));

@@ -2,16 +2,12 @@ function image_valid(){
     if (document.getElementById('prodURL1').value == ""){
         alert('Image is empty!');
         return false
+    }else if (document.getElementById('no_category')){
+        alert('Category is invalid');
+        return false;
     }
 }
 
-
-let submit = document.getElementById('submit_btn');
-if (document.getElementById('no_category')){
-    submit.disabled = true;
-}else{
-    submit.disabled = false;
-}
 
 
 $('#prodUpload').on('change', function () {
