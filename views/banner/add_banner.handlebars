@@ -3,7 +3,7 @@
     <div id="content">
         <h3 style="text-align: center;">Add Banner</h3>
         <div class="card card-body">
-            <form action="/banner/addBanner" method="post" id="addBanner">
+            <form action="/banner/addBanner" method="post" id="addBanner" onsubmit="return image_valid()">
                 <div class="row">
                     <div class="col d-flex flex-column">
                         <div class="row">
@@ -28,7 +28,7 @@
                         <p>Preview:</p>
                         <p>Recommended size: 1100 x 300</p>
                         <img id="banner_img" src="/img/placeholder-banner.png" alt="" class=" poster img-thumbnail img-fluid"
-                            style="width:1110px;height:333px;" >
+                            style="width:1110px;height:333px;">
                         <input id="bannerURL" type="hidden" name="bannerURL">
                         <input type="file" id="bannerUpload" name="bannerUpload"
                             accept="image/png,image/jpeg,image/jpg,image/">

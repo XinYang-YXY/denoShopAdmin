@@ -1,20 +1,10 @@
-function docReady(cb){
-    if (document.readyState === "complete" || document.readyState === "interactive") {
-        setTimeout(cb, 1);
-    } else {
-        document.addEventListener("DOMContentLoaded", cb);
+function image_valid(){    
+    if (document.getElementById('bannerURL').value == ""){
+        alert('Image is empty!');
+        return false
     }
 }
 
-docReady(function(){
-    let submit = document.getElementById('submit_btn');
-    
-    if (document.getElementById('bannerURL').value == ""){
-        submit.disabled = true;
-    }else{
-        submit.disabled = false;
-    }
-})
 
 
 function bannerUpload(id, upload, img, prodURL){

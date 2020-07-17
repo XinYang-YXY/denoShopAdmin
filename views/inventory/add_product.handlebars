@@ -4,7 +4,7 @@
         <h3 style="text-align: center;">Add Product</h3>
         {{> flashMsg/flashmsg}}
         <div class="card card-body">
-            <form action="/inventory/addproduct" method="post" id="addInventory">
+            <form action="/inventory/addproduct" method="post" id="addInventory" onsubmit="return image_valid()">
                 <div class="row">
                     <div class="col-md-5 col-lg-5">
                         <div class="row">
