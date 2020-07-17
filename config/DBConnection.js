@@ -5,15 +5,19 @@ const user = require("../models/User");
 const purchaseRecord = require("../models/PurchaseRecord");
 const cartItem = require("../models/CartItem");
 const hackingProduct = require("../models/HackingProduct");
+const deliveryInfo = require("../models/DeliveryInfo");
+const chat = require("../models/Chat");
+const order = require("../models/Order")
+// Import all the models
+// DB Sync
+const category = require("../models/Category");
+const banner = require("../models/Banner");
+const promodecode = require("../models/PromoCode");
 const productStats = require("../models/ProductStats");
 const productRating = require("../models/ProductRatings");
 const userRating = require("../models/UserRating");
-const deliveryInfo = require("../models/DeliveryInfo");
-const category = require("../models/Category");
-const chat = require("../models/Chat");
-const banner = require("../models/Banner");
-const promodecode = require("../models/PromoCode");
-// Import all the models
+
+// DB Sync
 
 const setUpDB = (drop) => {
 	mySQLDB
@@ -25,6 +29,10 @@ const setUpDB = (drop) => {
 			user.hasMany(purchaseRecord); // Define relationship
 			user.hasMany(cartItem);
 			user.hasMany(deliveryInfo);
+			user.hasMany(order);
+			deliveryInfo.hasMany(order);
+
+			// First dbSync
 			category.hasMany(hackingProduct);
 
 			// Product-Stats Relation
@@ -42,7 +50,8 @@ const setUpDB = (drop) => {
 			// User-UserRating Relation
 			user.hasMany(userRating);
 			userRating.belongsTo(user);
-			
+			// First dbSync
+
 			mySQLDB
 				.sync({
 					// Creates table if none exists
