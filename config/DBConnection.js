@@ -25,7 +25,7 @@ const setUpDB = (drop) => {
 			user.hasMany(purchaseRecord); // Define relationship
 			user.hasMany(cartItem);
 			user.hasMany(deliveryInfo);
-			category.hasMany(hackingProduct, {foreignKey: 'category'});
+			category.hasMany(hackingProduct);
 
 			// Product-Stats Relation
 			hackingProduct.hasMany(productStats);
