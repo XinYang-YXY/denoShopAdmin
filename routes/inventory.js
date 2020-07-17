@@ -104,7 +104,7 @@ router.post('/addproduct', async (req, res) => {
     let category = req.body.category;
     let quantity = parseInt(req.body.quantity);
     let image_urls = req.body.prodURL;
-    let status = req.body.status;
+    // let status = req.body.status;
     var new_url = [];
 
 
@@ -117,7 +117,7 @@ router.post('/addproduct', async (req, res) => {
     }
     let imageFile = JSON.stringify(new_url);
     Inventory.create({
-        price, imageFile, dateAdded, title, description, category, quantity, status
+        price, imageFile, dateAdded, title, description, category, quantity
     }).then(() => {
         fs.rmdirSync('./public/uploads', { recursive: true });
         alertMessage(res, 'success', 'Product succesfully added!', 'fas fa-check-circle', true);
@@ -156,7 +156,7 @@ router.put('/updateproduct/:id', async (req, res) => {
     let description = req.body.description.slice(0, 1999);
     let category = req.body.category;
     let quantity = parseInt(req.body.quantity);
-    let status = req.body.status;
+    // let status = req.body.status;
     var image_urls = [req.body.prodURL1, req.body.prodURL2, req.body.prodURL3, req.body.prodURL4];
     var new_url = [];
 
@@ -171,7 +171,7 @@ router.put('/updateproduct/:id', async (req, res) => {
     }
     let imageFile = JSON.stringify(new_url);
     Inventory.update({
-        price, imageFile, dateAdded, title, description, category, quantity, status
+        price, imageFile, dateAdded, title, description, category, quantity
     }, {
         where: {
             id: req.params.id

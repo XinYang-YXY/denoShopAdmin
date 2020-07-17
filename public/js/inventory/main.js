@@ -5,6 +5,15 @@ function image_valid(){
     }
 }
 
+
+let submit = document.getElementById('submit_btn');
+if (document.getElementById('no_category')){
+    submit.disabled = true;
+}else{
+    submit.disabled = false;
+}
+
+
 $('#prodUpload').on('change', function () {
     let formdata = new FormData();
     let image0 = $("#prodUpload")[0].files[0];

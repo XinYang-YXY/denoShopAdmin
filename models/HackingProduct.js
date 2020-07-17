@@ -20,9 +20,9 @@ const HackingProduct = db.define("hackingProduct", {
 	quantity: {
 		type: Sequelize.INTEGER,
 	},
-	status: {
-		type: Sequelize.STRING,
-	}
+	// status: {
+	// 	type: Sequelize.STRING,
+	// }
 });
 
 module.exports = HackingProduct;
