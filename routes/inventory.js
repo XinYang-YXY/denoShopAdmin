@@ -63,9 +63,11 @@ router.get('/delete/:id', (req, res) => {
             var json = JSON.parse(inventory.imageFile);
             for (var i = 0; i < json.length; i++) {
                 if (json[i].startsWith('http')) {
-                    let a = json[i].lastIndexOf('.');
-                    let public_url = json[i].substring(0, a).split('/').slice(-3).join('/');
-                    cloudinary.v2.uploader.destroy(public_url, function (error, result) {
+                    // let a = json[i].lastIndexOf('.');
+                    // let public_url = json[i].substring(0, a).split('/').slice(-3).join('/');
+                    let a = json[i].lastIndexOf('/');
+                    let public_url = json[i].substring(a + 1);
+                    cloudinary.v2.uploader.destroy('denoshop/products/' + public_url, function (error, result) {
                         if (error) { console.log(error) };
                     });
                 }
@@ -110,7 +112,9 @@ router.post('/addproduct', async (req, res) => {
 
     for (var i = 0; i < image_urls.length; i++) {
         if (image_urls[i] != '/img/no-image.jpg') {
-            await cloudinary.v2.uploader.upload('./public/' + image_urls[i], { folder: "denoshop/products", use_filename: true }, function (error, result) { error ? console.log(error) : new_url.push(result.url); })
+            await cloudinary.v2.uploader.upload('./public/' + image_urls[i], { folder: "denoshop/products", use_filename: true }, 
+            function (error, result) { 
+                error ? console.log(error) : new_url.push(cloudinary.image(result.public_id, { secure: true, transformation: [{ width: 300, height: 300, crop: "scale" }] }).replace("<img src='", '').replace("' />", '')); })
         } else {
             new_url.push('/img/no-image.jpg');
         }
@@ -166,7 +170,8 @@ router.put('/updateproduct/:id', async (req, res) => {
         } else if (image_urls[i].startsWith('/img/no-image.jpg')) {
             new_url.push(image_urls[i]);
         } else {
-            await cloudinary.v2.uploader.upload('./public/' + image_urls[i], { folder: "denoshop", use_filename: true }, function (error, result) { error ? console.log(error) : new_url.push(result.url) })
+            await cloudinary.v2.uploader.upload('./public/' + image_urls[i], { folder: "denoshop/products", use_filename: true }, function (error, result) { 
+                error ? console.log(error) : new_url.push(cloudinary.image(result.public_id, { secure: true, transformation: [{ width: 300, height: 300, crop: "scale" }] }).replace("<img src='", '').replace("' />", '')); })
         }
     }
     let imageFile = JSON.stringify(new_url);
@@ -181,9 +186,9 @@ router.put('/updateproduct/:id', async (req, res) => {
             if (image_urls[i] != original_image_url[i]) {
                 if (original_image_url[i].startsWith('http')) {
                     console.log(original_image_url[i]);
-                    let a = original_image_url[i].lastIndexOf('.');
-                    let public_url = original_image_url[i].substring(0, a).split('/').slice(-3).join('/');
-                    cloudinary.v2.uploader.destroy(public_url, function (error, result) {
+                    let a = original_image_url[i].lastIndexOf('/');
+                    let public_url = original_image_url[i].substring(a + 1);
+                    cloudinary.v2.uploader.destroy('denoshop/products/' + public_url, function (error, result) {
                         if (error) { console.log(error) };
                     });
                 }
