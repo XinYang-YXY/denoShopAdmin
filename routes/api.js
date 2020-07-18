@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require('express');
 const ProductStats = require('../models/ProductStats');
 const ProductRatings = require('../models/ProductRatings');
@@ -8,8 +10,8 @@ const currentDate = new Date();
 // Natural Language Processing API
 // part of Azure's Cognitive Services(Microsoft's AI service)
 const { TextAnalyticsClient, AzureKeyCredential } = require("@azure/ai-text-analytics");
-const key = 'c8874843b0074d2fb7521debf1885935';
-const endpoint = 'https://customer-comment-analysis.cognitiveservices.azure.com/';
+const key = process.env.NLP_KEY;
+const endpoint = process.env.NLP_ENDPOINT;
 
 async function analyzeText(textInput) {
     const client = new TextAnalyticsClient(endpoint, new AzureKeyCredential(key));

@@ -40,10 +40,11 @@ router.get('/targets', (req, res) => {
                 current_quota: o.target
             })
         });
+        deficit = (fulfilledTarget > currentTarget) ? 0 : parseFloat(fulfilledTarget - currentTarget).toFixed(2);
         return { productList: productList,
             current: parseFloat(currentTarget).toFixed(2), 
             fulfilled: parseFloat(fulfilledTarget).toFixed(2), 
-            deficit: parseFloat(fulfilledTarget - currentTarget).toFixed(2) };
+            deficit: deficit };
     }).then(data => {
         res.render('analytics/target', {
             title: "Current Targets",
