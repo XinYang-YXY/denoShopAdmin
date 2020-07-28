@@ -33,7 +33,7 @@ const setUpDB = (drop) => {
 			deliveryInfo.hasMany(order);
 
 			// First dbSync
-			category.hasMany(hackingProduct);
+			category.hasMany(hackingProduct,{foreignKey: 'category'});
 
 			// Product-Stats Relation
 			hackingProduct.hasMany(productStats);
