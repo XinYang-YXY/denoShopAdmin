@@ -11,6 +11,9 @@ const UserRating = db.define("UserRating", {
 	rating: {
 		type: Sequelize.FLOAT,
 	},
+	deltaContent: {
+		type: Sequelize.TEXT
+	},
 });
 
 module.exports = UserRating;

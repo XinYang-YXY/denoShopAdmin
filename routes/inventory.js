@@ -9,8 +9,11 @@ const cloudinary = require('cloudinary');
 require("../helpers/inventory/cloudinary");
 const { upload, single_upload1, single_upload2, single_upload3, single_upload4 } = require('../helpers/inventory/multer_Image');
 
-var original_image_url = [];
+const ProductStats = require('../models/ProductStats');
+const ProductRatings = require('../models/ProductRatings');
+const currentDate = new Date();
 
+var original_image_url = [];
 
 router.get('/', (req, res) => {
     Inventory.findAll()
@@ -122,7 +125,14 @@ router.post('/addproduct', async (req, res) => {
     let imageFile = JSON.stringify(new_url);
     Inventory.create({
         price, imageFile, dateAdded, title, description, category, quantity
-    }).then(() => {
+    }).then((result) => {
+        result.id
+
+        // Creating ProductStats & ProductRating
+        ProductStats.create({ year: currentDate.getFullYear(), hackingProductId: result.id });
+        ProductRatings.create({ year: currentDate.getFullYear(), hackingProductId: result.id })
+        // End
+
         fs.rmdirSync('./public/uploads', { recursive: true });
         alertMessage(res, 'success', 'Product succesfully added!', 'fas fa-check-circle', true);
         res.redirect('/inventory');

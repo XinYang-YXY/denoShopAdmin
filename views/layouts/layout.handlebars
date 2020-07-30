@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8" />
@@ -45,9 +46,13 @@
 	<script src="{{this}}"></script>
 	{{/each}}
 	{{/if}}
-	
+
 </head>
+
 <body>
+	{{> flashMsg/flashmsg}}
+	{{> flashMsg/simpleFlashMsg}}
+
 	{{{body}}}
 	<!-- jQuery -->
 	{{!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -68,4 +73,5 @@
 	{{/each}}
 	{{/if}}
 </body>
+
 </html>

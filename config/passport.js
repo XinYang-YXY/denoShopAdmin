@@ -1,31 +1,28 @@
 const LocalStrategy = require("passport-local").Strategy; // Get the local strategy
 const bcrypt = require("bcryptjs"); // Use to compare the salted password
 const User = require("../models/User"); // Load the user model
+const stripId = process.env.ADMIN_ID;
 
 function localStrategy(passport) {
 	passport.use(
-		new LocalStrategy(
-			{ usernameField: "email" }, // take the email as the usernameField, because we login with email
-			// Creating a method to find,compare and return
-			(email, password, done) => {
-				User.findOne({ where: { email } }).then((user) => {
-					// If user not found
-					if (!user) {
-						return done(null, false, { message: "No User Found" });
+		new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
+			console.log(email, password)
+			User.findOne({ where: { email: email, stripId: stripId } }).then((user) => {
+				console.log(user)
+				// If user not found
+				if (!user) return done(null, false, { message: "No User Found" })
+				
+				// If user found
+				bcrypt.compare(password, user.password, (err, isMatch) => {
+					if (err) throw err; // If any unexpected err happened
+					if (isMatch) {
+						return done(null, user); // If matched return the user, the user object will also be set into req.user for app to retrieve user object. referring to index.js
+					} else {
+						return done(null, false, { message: "Password Incorrect" }) // If user is not found
 					}
-					// If user found
-					bcrypt.compare(password, user.password, (err, isMatch) => {
-						if (err) throw err; // If any unexpected err happened
-						if (isMatch) {
-							return done(null, user); // If matched return the user, the user object will also be set into req.user for app to retrieve user object. referring to index.js
-						} else {
-							return done(null, false, {
-								message: "Password Incorrect",
-							}); // If user is not found
-						}
-					});
 				});
-			}
+			});
+		}
 			// Creating a method to find,compare and return
 		)
 	);

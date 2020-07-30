@@ -13,7 +13,7 @@ const ensureAuthenticated = (req, res, next) => {
 		"fas fa-exclamation-circle",
 		true
 	);
-	res.redirect("/login");
+	res.redirect("/");
 };
 
 module.exports = ensureAuthenticated;

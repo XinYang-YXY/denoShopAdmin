@@ -14,6 +14,10 @@ const key = process.env.NLP_KEY;
 const endpoint = process.env.NLP_ENDPOINT;
 
 async function analyzeText(textInput) {
+    if (textInput == null) {
+        return { keyPhases: "This product has no comments." }
+    }
+
     const client = new TextAnalyticsClient(endpoint, new AzureKeyCredential(key));
     let keyPhases = '';
     let sentiment = '';

@@ -4,36 +4,51 @@
         <h3>Overview</h3>
         <div class="row">
             <div class="col border rounded shadow-sm m-1">
+                <p class="panel-title">Current Profit</p>
+                <p class="panel-current">${{ currentProfit }}</p>
+                <p class="panel-difference"></p>
+            </div>
+            <div class="col border rounded shadow-sm m-1">
                 <p class="panel-title">Profit vs Last Year</p>
-                <p class="panel-current">$111m</p>
-                <p class="panel-difference">(+%2.43%)</p>
-            </div>
-            <div class="col border rounded shadow-sm m-1">
-                <p class="panel-title">Churn Rate vs Last Year</p>
-                <p class="panel-current">3.21%</p>
-                <p class="panel-difference">(+%0.73%)</p>
-            </div>
-            <div class="col border rounded shadow-sm m-1">
-                <p class="panel-title">Avg number of order per customer vs Last Year</p>
-                <p class="panel-current">2.47</p>
-                <p class="panel-difference">(+%0.73%)</p>
+                <p class="panel-current">${{ vsLastProfile }}</p>
+                <p class="panel-difference">({{ profitPercentChange }}%)</p>
             </div>
         </div>
         <div class="row">
-            <div class="col border rounded shadow-sm m-1">
-                <h1>element here</h1>
-            </div>
-            <div class="col border rounded shadow-sm m-1">
-                <h1>element here</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col border rounded shadow-sm m-1">
-                <h1>element here</h1>
-            </div>
-            <div class="col border rounded shadow-sm m-1">
-                <h1>element here</h1>
+            <div class="col-8 border rounded shadow-sm m-1">
+                <canvas id="monthly-profit-chart"></canvas>
             </div>
         </div>
     </div>
 </div>
+<script>
+    let template = {
+        type: 'bar',
+        data: {
+            datasets: [{
+                label: 'Monthly Profit (S$)',
+                yAxisID: 'bar-yAxis',
+                order: 2,
+                backgroundColor: 'rgb(63, 159, 191)',
+                borderColor: 'rgb(63, 159, 191)',
+                data: [{{ monthlyProfit }}],
+            }],
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    display: true,
+                    id: 'bar-yAxis',
+                    type: 'linear',
+                    position: 'left',
+                    ticks: {
+                        maxTicksLimit: 6,
+                        stepSize: 1,
+                    },
+                }]
+            }
+        }
+    };
+    let chart = new Chart(document.getElementById('monthly-profit-chart').getContext('2d'), template);
+</script>
