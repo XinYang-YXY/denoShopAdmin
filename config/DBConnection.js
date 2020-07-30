@@ -26,11 +26,27 @@ const setUpDB = (drop) => {
 			console.log("Denoshop DB is connected!");
 		})
 		.then(() => {
-			user.hasMany(purchaseRecord); // Define relationship
-			user.hasMany(cartItem);
-			user.hasMany(deliveryInfo);
-			user.hasMany(order);
-			deliveryInfo.hasMany(order);
+			// Define relationship
+
+			// User - Cart Item
+			user.hasMany(cartItem, {foreignKey: "userId"});
+			cartItem.belongsTo(user, {foreignKey: "userId"})
+
+			// User - Delivery Info
+			user.hasMany(deliveryInfo, {foreignKey: "userId"});
+			deliveryInfo.belongsTo(user, {foreignKey: "userId"});
+
+			// User - Order
+			user.hasMany(order, {foreignKey: "userId"});
+			order.belongsTo(user, {foreignKey: "userId"});
+
+			// Order - Purchase Record
+			order.hasMany(purchaseRecord, {foreignKey: "orderId"});
+			purchaseRecord.belongsTo(order, {foreignKey: "orderId"});
+
+			// DeliveryInfo - Order
+			deliveryInfo.hasMany(order, {foreignKey: 'deliveryInfoId'});
+			order.belongsTo(deliveryInfo, {foreignKey: 'deliveryInfoId'});
 
 			// First dbSync
 			category.hasMany(hackingProduct,{foreignKey: 'category'});
