@@ -103,7 +103,7 @@ router.post('/addBanner', async (req, res) => {
     if (image_url != '/img/no-image.jpg') {
         await cloudinary.v2.uploader.upload('./public/' + image_url, { folder: "denoshop/banners", use_filename: true }, function (error, result) {
             error ? console.log(error) :
-                imageFile = cloudinary.image(result.public_id, { secure: true, transformation: [{ width: 1110, height: 333, crop: "scale" }] }).replace("<img src='", '').replace("' />", '');
+                imageFile = cloudinary.image(result.public_id, { secure: true, transformation: [{ width: 640, crop: "scale" }] }).replace("<img src='", '').replace("' />", '');
         })
     }
 
@@ -159,7 +159,7 @@ router.put('/updatebanner/:id', async (req, res) => {
 
     if ((!imageFile.startsWith("https://res.cloudinary.com")) && (!imageFile.startsWith('/img/no-image.jpg'))) {
         await cloudinary.v2.uploader.upload('./public/' + imageFile, { folder: "denoshop/banners", use_filename: true }, function (error, result) {
-            error ? console.log(error) : imageFile = cloudinary.image(result.public_id, { secure: true, transformation: [{ width: 1110, height: 333, crop: "scale" }] }).replace("<img src='", '').replace("' />", '')})
+            error ? console.log(error) : imageFile = cloudinary.image(result.public_id, { secure: true, transformation: [{ width: 640, crop: "scale" }] }).replace("<img src='", '').replace("' />", '')})
     }
     Banner.update({
         title,

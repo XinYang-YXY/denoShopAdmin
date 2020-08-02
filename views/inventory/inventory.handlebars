@@ -38,7 +38,7 @@
                     <tr>
                         <td>{{id}}</td>
                         <td>
-                            <img class='product_img img-thumbnail img-fluid' src="{{convert_to_json imageFile 0}}"
+                            <img class='product_img img-thumbnail img-fluid' src="{{imageUrl imageFile 0}}"
                                 alt="">
                         </td>
                         <td>{{title}}</td>
@@ -98,7 +98,7 @@
                                 <div class="modal-body">
                                     <p>ID: {{id}}</p>
                                     <p>Image: <img class='product_img img-thumbnail img-fluid'
-                                            src="{{convert_to_json imageFile 0}}" alt=""
+                                            src="{{imageUrl imageFile 0}}" alt=""
                                             style="width:300px; height:auto;">
                                     </p>
                                     <p>Title: {{title}}</p>
