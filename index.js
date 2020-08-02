@@ -70,7 +70,7 @@ const app = express();
 
 const { multiply } = require("./helpers/hbs");
 const { equal, noEqual } = require("./helpers/hbs");
-const { convert_to_json, readMore, formatDate, select} = require("./helpers/inventory/inventory_helper");
+const { imageUrl, readMore, formatDate, select} = require("./helpers/inventory/inventory_helper");
 const { Op } = require("sequelize");
 app.engine(
 	"handlebars",
@@ -79,7 +79,7 @@ app.engine(
 			equal,
 			noEqual,
 			multiply,
-			convert_to_json,
+			imageUrl,
 			readMore,
 			formatDate,
 			select

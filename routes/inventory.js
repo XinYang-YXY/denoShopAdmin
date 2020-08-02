@@ -175,7 +175,7 @@ router.put('/updateproduct/:id', async (req, res) => {
     var new_url = [];
 
     for (var i = 0; i < image_urls.length; i++) {
-        if (image_urls[i].startsWith('http://res.cloudinary.com')) {
+        if (image_urls[i].startsWith('https://res.cloudinary.com')) {
             new_url.push(image_urls[i])
         } else if (image_urls[i].startsWith('/img/no-image.jpg')) {
             new_url.push(image_urls[i]);
@@ -194,7 +194,7 @@ router.put('/updateproduct/:id', async (req, res) => {
     }).then(() => {
         for (var i = 0; i < image_urls.length; i++) {
             if (image_urls[i] != original_image_url[i]) {
-                if (original_image_url[i].startsWith('http')) {
+                if (original_image_url[i].startsWith('https')) {
                     console.log(original_image_url[i]);
                     let a = original_image_url[i].lastIndexOf('/');
                     let public_url = original_image_url[i].substring(a + 1);

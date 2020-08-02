@@ -11,7 +11,7 @@ module.exports = {
     formatDate: function (date, targetFormat) {
         return moment(date).format(targetFormat);
     },
-    convert_to_json: function (string, ind) {
+    imageUrl: function (string, ind) {
         return JSON.parse(string)[ind];
     },
     select: function (value, options) {
