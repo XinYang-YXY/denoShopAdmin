@@ -25,8 +25,13 @@
                                 <img src="{{imageUrl inventory.imageFile 1}}" alt=""
                                     onerror="this.onerror=null;this.src='/img/no-image.jpg';"
                                     class="img-thumbnail img-fluid" id="img2">
+                                {{#if (imageUrl inventory.imageFile 1)}}
                                 <input id="prodURL2" type="hidden" name="prodURL2"
                                     value="{{imageUrl inventory.imageFile 1}}">
+                                {{else}}
+                                <input id="prodURL2" type="hidden" name="prodURL2"
+                                    value="/img/no-image.jpg">
+                                {{/if}}
                                 <input type="file" name="prodUpload2" id="prodUpload2" class="file_button"
                                     accept="image/png,image/jpeg,image/jpg,image/gif" hidden>
                             </div>
@@ -38,8 +43,13 @@
                                 <img src="{{imageUrl inventory.imageFile 2}}" alt=""
                                     onerror="this.onerror=null;this.src='/img/no-image.jpg';"
                                     class="img-thumbnail img-fluid" id="img3">
+                                {{#if (imageUrl inventory.imageFile 2)}}
                                 <input id="prodURL3" type="hidden" name="prodURL3"
                                     value="{{imageUrl inventory.imageFile 2}}">
+                                {{else}}
+                                <input id="prodURL3" type="hidden" name="prodURL3"
+                                    value="/img/no-image.jpg">
+                                {{/if}}
                                 <input type="file" name="prodUpload3" id="prodUpload3" class="file_button"
                                     accept="image/png,image/jpeg,image/jpg,image/gif" hidden>
                             </div>
@@ -51,8 +61,13 @@
                                     onerror="this.onerror=null;this.src='/img/no-image.jpg';"
                                     class="img-thumbnail img-fluid" id="img4">
                             </div>
+                            {{#if (imageUrl inventory.imageFile 3)}}
                             <input id="prodURL4" type="hidden" name="prodURL4"
                                 value="{{imageUrl inventory.imageFile 3}}">
+                            {{else}}
+                            <input id="prodURL4" type="hidden" name="prodURL4"
+                                    value="/img/no-image.jpg">
+                            {{/if}}
                             <input type="file" name="prodUpload4" id="prodUpload4" class="file_button"
                                 accept="image/png,image/jpeg,image/jpg,image/gif" hidden>
                         </div>
