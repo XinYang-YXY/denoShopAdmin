@@ -1,13 +1,13 @@
 const LocalStrategy = require("passport-local").Strategy; // Get the local strategy
 const bcrypt = require("bcryptjs"); // Use to compare the salted password
 const User = require("../models/User"); // Load the user model
-const stripId = process.env.ADMIN_ID;
+const stripeId = process.env.ADMIN_ID;
 
 function localStrategy(passport) {
 	passport.use(
 		new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
 			console.log(email, password)
-			User.findOne({ where: { email: email, stripId: stripId } }).then((user) => {
+			User.findOne({ where: { email: email, stripeId: stripeId } }).then((user) => {
 				console.log(user)
 				// If user not found
 				if (!user) return done(null, false, { message: "No User Found" })

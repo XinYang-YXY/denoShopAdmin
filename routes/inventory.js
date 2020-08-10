@@ -126,9 +126,8 @@ router.post('/addproduct', async (req, res) => {
     let imageFile = JSON.stringify(new_url);
     Inventory.create({
         price, imageFile, dateAdded, title, description, category, quantity
-    }).then((result) => {
-        result.id
-
+    }).then(result => {
+        
         // Creating ProductStats & ProductRating
         ProductStats.create({ year: currentDate.getFullYear(), hackingProductId: result.id });
         ProductRatings.create({ year: currentDate.getFullYear(), hackingProductId: result.id })

@@ -27,24 +27,17 @@
         data: {
             datasets: [{
                 label: 'Monthly Profit (S$)',
-                yAxisID: 'bar-yAxis',
-                order: 2,
                 backgroundColor: 'rgb(63, 159, 191)',
                 borderColor: 'rgb(63, 159, 191)',
-                data: [{{ monthlyProfit }}],
+                data: [{{ monthlyProfit }}]
             }],
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         },
         options: {
             scales: {
                 yAxes: [{
-                    display: true,
-                    id: 'bar-yAxis',
-                    type: 'linear',
-                    position: 'left',
                     ticks: {
-                        maxTicksLimit: 6,
-                        stepSize: 1,
+                        min: 0
                     },
                 }]
             }
