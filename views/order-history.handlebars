@@ -37,11 +37,11 @@
                     <tbody>
                         {{#each order}}
                         <tr>
-                            <td>{{this.order_id}}</td>
-                            <td>{{this.user_id}}</td>
-                            <td>{{this.date}}</td>
+                            <td>{{this.id}}</td>
+                            <td>{{this.userId}}</td>
+                            <td>{{this.orderDate}}</td>
                             <td>
-                                <a href="/admin/order/{{this.order_id}}" style="color: rgb(51, 153, 255);">View</a>
+                                <a href="/admin/order/{{this.id}}" style="color: rgb(51, 153, 255);">View</a>
                             </td>
                             <td>
                                 <input type="checkbox">
@@ -51,7 +51,7 @@
                     </tbody>
                 </table>
                 {{else}}
-                <h3>There is not order.</h3>
+                <h3>There is no order.</h3>
                 {{/if}}
             </div>
         </div>
