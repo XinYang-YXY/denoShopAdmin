@@ -15,6 +15,7 @@
           <th class="col">Department</th>
           <th class="col">Problem Description</th>
           <th class="col">Urgent</th>
+          <th class="col">Staff ID</th>
           <th class="col">Staff Name</th>
           <th class="col"></th>
         </tr>
@@ -35,6 +36,7 @@
           {{else}}
           <td class="col"></td>
           {{/if}}
+          <td class="col">{{this.StaffID}}</td>
           <td class="col">{{this.StaffName}}</td>
           <td class="col">
             <button class="btn btn-success mr-2" onclick='window.location.href = "http://localhost:5000/chat/log/{{this.id}}"'>View Chat Log</button>
