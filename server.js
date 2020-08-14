@@ -1,4 +1,5 @@
 const Chat = require("./models/Chat");
+const request = require('request')
 
 const
     io = require("socket.io"),
@@ -21,7 +22,6 @@ var formatter = new Intl.DateTimeFormat(('en-US'), options);
 
 // event fired every time a new client connects:
 server.on("connection", (socket) => {
-
     socket.on('new-room', (userID ,reqName , reqEmail , reqPhone , reqDepartment , reqDesc , reqUrgent ,dateTime) => {
         Chat.findOne({
             where: {
@@ -41,7 +41,7 @@ server.on("connection", (socket) => {
                     RequestUrgent : reqUrgent,
                 }) .then(function(room){
                     rooms[room.id] = { users: {} , position: {}}
-                    requests.push([dateTime ,userID, reqName , reqEmail , reqPhone , reqDepartment , reqDesc , reqUrgent , room.id]);
+                    requests.push([null,dateTime ,userID, reqName , reqEmail , reqPhone , reqDepartment , reqDesc , reqUrgent , room.id]);
                     socket.emit('redirectRoom', room.id)
                 })
             } else {
@@ -60,6 +60,11 @@ server.on("connection", (socket) => {
             var msg = `User ${name} has joined`
         } else if (position == 'staffJoin') {
             var msg = `You are now connected to ${name} from Deno Shop`
+            requests.forEach(function(request, index, object) {
+                if (request[9] == room) {
+                  request[0] = name
+                }
+            });
         }
         Chat.findOne({
             where: {
@@ -197,13 +202,34 @@ server.on("connection", (socket) => {
             { where: { id: room } }
         )
         requests.forEach(function(request, index, object) {
-            if (request[8] == room) {
+            if (request[9] == room) {
               object.splice(index, 1);
             }
           });
         // delete rooms[room].users[socket.id]
         // delete rooms[room].position[socket.id]
         socket.nsp.to(room).emit('redirect', 'roomend')
+    })
+
+    socket.on('chatbotMsg',(userid,Message) => {
+        request.post('http://localhost:6900/denoshop-aucqns/us-central1/dialogflowGateway', {
+            json: {
+                sessionId : String(userid),
+                queryInput: {
+                  text: {
+                    text: String(Message),
+                    languageCode: "en-US"
+                  }
+                }
+              }
+            }, (error, res, body) => {
+                if (error) {
+                    console.error(error)
+                    return
+                } else {
+                    socket.emit('chatbotReply', body.fulfillmentText)
+                }
+            })
     })
 
 });
