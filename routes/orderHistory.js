@@ -155,14 +155,25 @@ router.get("/updateStatus/:id/:orderStatus", async (req, res) => {
                 id: orderId
             }}
         ).then(() => {
-            res.render("orderHistory/qrcodeSuccess", {
-                title: 'Success',
-                style: {
-                    sidemenu: "sidemenu-styling.css",
-                    orderHistory: "orderHistory/invoice.css"
-                },
-                script: { sidemenu: "sidemenu-script.js" }
-            })
+            if (neworderStatus == 4) {
+                res.render("orderHistory/qrcodeUserSuccess", {
+                    title: 'Success',
+                    style: {
+                        sidemenu: "sidemenu-styling.css",
+                        orderHistory: "orderHistory/invoice.css"
+                    },
+                    script: { sidemenu: "sidemenu-script.js" }
+                })
+            } else {
+                res.render("orderHistory/qrcodeSuccess", {
+                    title: 'Success',
+                    style: {
+                        sidemenu: "sidemenu-styling.css",
+                        orderHistory: "orderHistory/invoice.css"
+                    },
+                    script: { sidemenu: "sidemenu-script.js" }
+                })
+            }
         }).catch((err) => {
             res.render("orderHistory/qrcodeError", {
     
