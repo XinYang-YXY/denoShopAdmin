@@ -1,0 +1,131 @@
+<div class="wrapper">
+    {{>_sidemenu}}
+    <div id="content">
+        <div class="row">
+            <div class="col">
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <form>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" id="searchKey" class="form-control"
+                                        placeholder="Search by Order ID / User ID">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Print order history table or by selected row -->
+            <div class="col-12">
+                <table class="table table-hover table-responsive">
+                    <div class="pb-3 d-flex flex-row-reverse">
+                        <a href="#" class="btn btn-primary">Print Selected</a>
+                    </div>
+                    <thead>
+                        <tr>
+                            <th scope="col-2">Order ID</th>
+                            <th scope="col-2">User ID</th>
+                            <th scope="col-2">Transaction Date</th>
+                            <th scope="col-2">Delivery Date &amp; Time</th>
+                            <th scope="col-1">Actions</th>
+                            <th scope="col-3"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if ordPlacedArr}}
+                            <tr class="rowHeader">
+                                <td colspan="6" class="clickable" data-toggle="collapse" id="orderPlaced" data-target=".placed">
+                                    <i class="fa fa-check"></i> Orders Placed <i class="float-right fas fa-angle-down rotate-icon"></i>
+                                </td>
+                            </tr>
+
+                            {{#each ordPlacedArr}}
+                                <tr class="collapse placed show">
+                                    <td>{{this.id}}</td>
+                                    <td>{{this.userId}}</td>
+                                    <td>{{this.orderDate}}</td>
+                                    <td>{{this.deliveryDate}} {{this.deliveryTime}}</td>
+                                    <td class="action-btns">
+                                        <a href="/orderHistory/invoice/{{this.id}}"><!--style="color: rgb(51, 153, 255);"--><i class="fa fa-eye"></i></a>
+                                        <a href="/orderHistory/qrcode/{{this.id}}/{{this.orderStatus}}" target="_blank"><i class="fa fa-qrcode"></i></a>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                </tr>
+                            {{/each}}
+						{{/if}}
+                        {{#if ordOTWarr}}
+							<tr class="rowHeader">
+                                <td colspan="6" class="clickable" data-toggle="collapse" id="orderPlaced" data-target=".otw">
+                                    <i class="fa fa-truck"></i> Orders on the way <i class="float-right fas fa-angle-down rotate-icon"></i>
+                                </td>
+                            </tr>
+                            {{#each ordOTWarr}}
+                                <tr class="collapse otw show">
+                                    <td>{{this.id}}</td>
+                                    <td>{{this.userId}}</td>
+                                    <td>{{this.orderDate}}</td>
+                                    <td>{{this.deliveryDate}} {{this.deliveryTime}}</td>
+                                    <td>
+                                        <a href="/orderHistory/invoice/{{this.id}}"><!--style="color: rgb(51, 153, 255);"--><i class="fa fa-eye"></i></a>
+                                        <a href="/orderHistory/qrcode/{{this.id}}/{{this.orderStatus}}" target="_blank"><i class="fa fa-qrcode"></i></a>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                </tr>
+                            {{/each}}
+						{{/if}}
+                        {{#if ordArriveArr}}
+							<tr class="rowHeader">
+                                <td colspan="6" class="clickable" data-toggle="collapse" id="orderPlaced" data-target=".arrived">
+                                    <i class="fas fa-box"></i> Orders Arrived <i class="float-right fas fa-angle-down rotate-icon"></i>
+                                </td>
+                            </tr>
+                            {{#each ordArriveArr}}
+                                <tr class="collapse arrived show">
+                                    <td>{{this.id}}</td>
+                                    <td>{{this.userId}}</td>
+                                    <td>{{this.orderDate}}</td>
+                                    <td>{{this.deliveryDate}} {{this.deliveryTime}}</td>
+                                    <td>
+                                        <a href="/orderHistory/invoice/{{this.id}}"><!--style="color: rgb(51, 153, 255);"--><i class="fa fa-eye"></i></a>
+                                        <a href="/orderHistory/qrcode/{{this.id}}/{{this.orderStatus}}" target="_blank"><i class="fa fa-qrcode"></i></a>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                </tr>
+                            {{/each}}
+						{{/if}}
+                        {{#if ordCompleteArr}}
+							<tr class="rowHeader">
+                                <td colspan="6" class="clickable" data-toggle="collapse" id="orderPlaced" data-target=".completed">
+                                    Completed Orders <i class="float-right fas fa-angle-down rotate-icon"></i>
+                                </td>
+                            </tr>
+                            {{#each ordCompleteArr}}
+                                <tr class="collapse completed show">
+                                    <td>{{this.id}}</td>
+                                    <td>{{this.userId}}</td>
+                                    <td>{{this.orderDate}}</td>
+                                    <td>{{this.deliveryDate}} {{this.deliveryTime}}</td>
+                                    <td>
+                                        <a href="/orderHistory/invoice/{{this.id}}"><!--style="color: rgb(51, 153, 255);"--><i class="fa fa-eye"></i></a>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                </tr>
+                            {{/each}}
+						{{/if}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
