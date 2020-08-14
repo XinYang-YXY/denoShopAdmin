@@ -1,6 +1,7 @@
 const mySQLDB = require("./DBConfig");
 
 // Import all the models
+const admin = require("../models/Admin");
 const user = require("../models/User");
 const purchaseRecord = require("../models/PurchaseRecord");
 const cartItem = require("../models/CartItem");
