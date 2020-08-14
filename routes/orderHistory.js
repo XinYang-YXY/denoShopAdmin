@@ -138,7 +138,7 @@ router.get("/updateStatus/:id/:orderStatus", async (req, res) => {
     }).then(order => {return order})
 
     if (orderStatus != orderFound.orderStatus) {
-        alertMessage(res, 'danger', 'Invalid URL', 'fas fa-exclamation-circle', true);
+        alertMessage(res, 'danger', 'Invalid QR Code', 'fas fa-exclamation-circle', true);
         res.redirect("/");
     } else {
         if (orderStatus == 1) {
@@ -148,7 +148,7 @@ router.get("/updateStatus/:id/:orderStatus", async (req, res) => {
         } else if (orderStatus == 3) {
             var neworderStatus = 4
         }
-        
+
         Order.update(
             {orderStatus: neworderStatus},
             {where: {
