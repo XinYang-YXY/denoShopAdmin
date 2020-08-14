@@ -28,14 +28,4 @@ router.get("/error", (req, res) => {
     res.render("error");
 });
 
-router.get('/order-history', ensureAuthenticated, async (req, res) => {
-    let orderData = await Order.findAll()
-    res.render('order-history', {
-        title: "Order History",
-        order: orderData,
-        style: { sidemenu: "sidemenu-styling.css" },
-        script: { sidemenu: "sidemenu-script.js" }
-    });
-});
-
 module.exports = router;
