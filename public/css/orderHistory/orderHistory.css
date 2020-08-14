@@ -1,0 +1,29 @@
+.rowHeader {
+    background-color: forestgreen;
+    color: lightgray;
+    line-height: 10px;
+}
+
+.rowHeader:hover {
+    background-color: rgba(34, 139, 34, 0.5) !important;
+    color: darkslategrey
+}
+
+.collapsed .fa-angle-down.rotate-icon{
+    transform: rotate(90deg);
+    transition: .3s transform ease-in-out;
+}
+
+.collapse {
+    width: -webkit-fill-available;
+}
+
+.action-btns a {
+    font-size: 14px;
+    color: #2b2f4c;
+    margin-right: 5%;
+}
+
+.action-btns a:hover {
+    filter: invert(70%);
+}
