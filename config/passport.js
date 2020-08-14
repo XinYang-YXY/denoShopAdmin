@@ -1,24 +1,23 @@
 const LocalStrategy = require("passport-local").Strategy; // Get the local strategy
 const bcrypt = require("bcryptjs"); // Use to compare the salted password
-const User = require("../models/User"); // Load the user model
-const stripeId = process.env.ADMIN_ID;
+const Admin = require("../models/Admin"); 
 
 function localStrategy(passport) {
 	passport.use(
 		new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
 			console.log(email, password)
-			User.findOne({ where: { email: email, stripeId: stripeId } }).then((user) => {
-				console.log(user)
-				// If user not found
-				if (!user) return done(null, false, { message: "No User Found" })
+			Admin.findOne({ where: { email: email } }).then((admin) => {
+				console.log(admin)
+				// If admin not found
+				if (!admin) return done(null, false, { message: "No User Found" })
 				
-				// If user found
-				bcrypt.compare(password, user.password, (err, isMatch) => {
+				// If admin found
+				bcrypt.compare(password, admin.password, (err, isMatch) => {
 					if (err) throw err; // If any unexpected err happened
 					if (isMatch) {
-						return done(null, user); // If matched return the user, the user object will also be set into req.user for app to retrieve user object. referring to index.js
+						return done(null, admin); // If matched return the admin, the admin object will also be set into req.admin for app to retrieve admin object. referring to index.js
 					} else {
-						return done(null, false, { message: "Password Incorrect" }) // If user is not found
+						return done(null, false, { message: "Password Incorrect" }) // If admin is not found
 					}
 				});
 			});
@@ -27,22 +26,22 @@ function localStrategy(passport) {
 		)
 	);
 
-	// When user is authenticated
+	// When admin is authenticated
 	//
-	// Serializes (stores) user id into session which is stored in the session table of mysql upon successful authentication
-	passport.serializeUser((user, done) => {
-		done(null, user.id); // user.id used to identify authenticated user
+	// Serializes (stores) admin id into session which is stored in the session table of mysql upon successful authentication
+	passport.serializeUser((admin, done) => {
+		done(null, admin.id); // admin.id used to identify authenticated admin
 	});
 
-	// User object is retrieved by userId from session for every subsequent user request if passport finds a user object in the session table
+	// User object is retrieved by userId from session for every subsequent admin request if passport finds a admin object in the session table
 	// Passport then passes userId
 	passport.deserializeUser((userId, done) => {
-		User.findByPk(userId)
-			.then((user) => {
-				done(null, user); // user object saved in req.session - set user object into req.user
+		Admin.findByPk(userId)
+			.then((admin) => {
+				done(null, admin); // admin object saved in req.session - set admin object into req.admin
 			})
 			.catch((done) => {
-				console.log(done); // No user found, not stored in req.session
+				console.log(done); // No admin found, not stored in req.session
 			});
 	});
 }

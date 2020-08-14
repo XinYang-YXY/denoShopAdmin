@@ -10,23 +10,28 @@
                         <div class="row">
                             <div style="position:relative">
                                 <label class="edit-icon" for="prodUpload1"><i class="fas fa-edit fa-lg"></i></label>
-                                <img src="{{convert_to_json inventory.imageFile 0}}" alt=""
+                                <img src="{{imageUrl inventory.imageFile 0}}" alt=""
                                     onerror="this.onerror=null;this.src='/img/no-image.jpg';"
                                     class="img-thumbnail img-fluid" onmouseover="" onmouseout="" id="img1">
                             </div>
                             <input type="file" name="prodUpload1" id="prodUpload1" class="file_button"
                                 accept="image/png,image/jpeg,image/jpg,image/gif" hidden>
                             <input id="prodURL1" type="hidden" name="prodURL1"
-                                value="{{convert_to_json inventory.imageFile 0}}">
-                            {{!-- <input type="image" name="" id="img1" src="{{convert_to_json inventory.imageFile 0}}"> --}}
+                                value="{{imageUrl inventory.imageFile 0}}">
+                            {{!-- <input type="image" name="" id="img1" src="{{imageUrl inventory.imageFile 0}}"> --}}
                             <div style="position:relative">
                                 <i class="fas fa-trash-alt fa-lg delete-icon" onclick="remove_img(2)"></i>
                                 <label class="edit-icon" for="prodUpload2"><i class="fas fa-edit fa-lg"></i></label>
-                                <img src="{{convert_to_json inventory.imageFile 1}}" alt=""
+                                <img src="{{imageUrl inventory.imageFile 1}}" alt=""
                                     onerror="this.onerror=null;this.src='/img/no-image.jpg';"
                                     class="img-thumbnail img-fluid" id="img2">
+                                {{#if (imageUrl inventory.imageFile 1)}}
                                 <input id="prodURL2" type="hidden" name="prodURL2"
-                                    value="{{convert_to_json inventory.imageFile 1}}">
+                                    value="{{imageUrl inventory.imageFile 1}}">
+                                {{else}}
+                                <input id="prodURL2" type="hidden" name="prodURL2"
+                                    value="/img/no-image.jpg">
+                                {{/if}}
                                 <input type="file" name="prodUpload2" id="prodUpload2" class="file_button"
                                     accept="image/png,image/jpeg,image/jpg,image/gif" hidden>
                             </div>
@@ -35,11 +40,16 @@
                             <div style="position:relative">
                                 <i class="fas fa-trash-alt fa-lg delete-icon" onclick="remove_img(3)"></i>
                                 <label class="edit-icon" for="prodUpload3"><i class="fas fa-edit fa-lg"></i></label>
-                                <img src="{{convert_to_json inventory.imageFile 2}}" alt=""
+                                <img src="{{imageUrl inventory.imageFile 2}}" alt=""
                                     onerror="this.onerror=null;this.src='/img/no-image.jpg';"
                                     class="img-thumbnail img-fluid" id="img3">
+                                {{#if (imageUrl inventory.imageFile 2)}}
                                 <input id="prodURL3" type="hidden" name="prodURL3"
-                                    value="{{convert_to_json inventory.imageFile 2}}">
+                                    value="{{imageUrl inventory.imageFile 2}}">
+                                {{else}}
+                                <input id="prodURL3" type="hidden" name="prodURL3"
+                                    value="/img/no-image.jpg">
+                                {{/if}}
                                 <input type="file" name="prodUpload3" id="prodUpload3" class="file_button"
                                     accept="image/png,image/jpeg,image/jpg,image/gif" hidden>
                             </div>
@@ -47,12 +57,17 @@
                             <div style="position:relative">
                                 <i class="fas fa-trash-alt fa-lg delete-icon" onclick="remove_img(4)"></i>
                                 <label class="edit-icon" for="prodUpload4"><i class="fas fa-edit fa-lg"></i></label>
-                                <img src="{{convert_to_json inventory.imageFile 3}}" alt=""
+                                <img src="{{imageUrl inventory.imageFile 3}}" alt=""
                                     onerror="this.onerror=null;this.src='/img/no-image.jpg';"
                                     class="img-thumbnail img-fluid" id="img4">
                             </div>
+                            {{#if (imageUrl inventory.imageFile 3)}}
                             <input id="prodURL4" type="hidden" name="prodURL4"
-                                value="{{convert_to_json inventory.imageFile 3}}">
+                                value="{{imageUrl inventory.imageFile 3}}">
+                            {{else}}
+                            <input id="prodURL4" type="hidden" name="prodURL4"
+                                    value="/img/no-image.jpg">
+                            {{/if}}
                             <input type="file" name="prodUpload4" id="prodUpload4" class="file_button"
                                 accept="image/png,image/jpeg,image/jpg,image/gif" hidden>
                         </div>

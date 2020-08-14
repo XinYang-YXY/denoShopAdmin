@@ -3,14 +3,11 @@ const router = express.Router();
 
 const hackingProduct = require('../models/HackingProduct');
 const ProductStats = require('../models/ProductStats');
+const ProductRatings = require('../models/ProductRatings');
 const currentDate = new Date();
+const moment = require('moment');
 
 const ensureAuthenticated = require("../helpers/auth");
-
-// Note by Yong Yudh:
-// The queries implemented here are very inefficient way of getting data
-// this is a temporary solution until I've figure out how to better query datas from mysql with sequelize
-// To be optimized: '/' and '/targets'
 
 router.get('/', ensureAuthenticated, (req, res) => {
     ProductStats.findAll({
@@ -31,8 +28,6 @@ router.get('/', ensureAuthenticated, (req, res) => {
                 o.jul + o.aug + o.sep + o.oct + o.nov + o.dec;
             currentProfit += (o.hackingProduct.price * sold);
 
-            // This is omfg, the most horrendous code I've ever written in my entire life.
-            // I seriously need to find a better solution to this when I have enough time...
             monthlyProfit[0] += o.hackingProduct.price * o.jan;
             monthlyProfit[1] += o.hackingProduct.price * o.feb;
             monthlyProfit[2] += o.hackingProduct.price * o.mar;
@@ -46,9 +41,9 @@ router.get('/', ensureAuthenticated, (req, res) => {
             monthlyProfit[10] += o.hackingProduct.price * o.nov;
             monthlyProfit[11] += o.hackingProduct.price * o.dec;
         })
-        return [ currentProfit, monthlyProfit ]
+        return [currentProfit, monthlyProfit]
     }).then(currentData => {
-        
+
         ProductStats.findAll({
             where: {
                 year: currentDate.getFullYear() - 1
@@ -73,9 +68,9 @@ router.get('/', ensureAuthenticated, (req, res) => {
                 script: { text: "sidemenu-script.js" },
                 jsPlugins: { src: "/chart.js/dist/Chart.js" },
                 currentProfit: currentData[0],
-                vsLastProfile: currentData[0] - lastData,
+                vsLastProfile: (lastData === 0) ? 0 : currentData[0] - lastData,
                 monthlyProfit: currentData[1],
-                profitPercentChange: (((currentData[0] - lastData) / lastData) * 100).toFixed(1)
+                profitPercentChange: (lastData === 0) ? 0 : (((currentData[0] - lastData) / lastData) * 100).toFixed(1)
             });
             console.log(currentData[0], currentData[1], lastData);
         })
@@ -129,12 +124,9 @@ router.get('/targets', ensureAuthenticated, (req, res) => {
     });
 })
 
-// cont
 router.post('/update-target/:id', (req, res) => {
     let id = req.params.id;
     let newTarget = req.body.newTarget;
-
-    console.log(`ID: ${id}, Value: ${newTarget}`);
 
     ProductStats.update({
         target: newTarget
