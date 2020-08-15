@@ -11,7 +11,7 @@ INSERT INTO productstats (id, `year`, target, jan, feb, mar, apr, may, jun, jul,
 	(7, 2019, 100, 16, 17, 19, 15, 17, 14, 16, 15, 15, 16, 17, 17, 4),
 	(8, 2020, 120, 7, 8, 9, 9, 10, 11, 10, 9, 12, 12, 13, 12, 4);
     
-INSERT INTO productratings (id, `year`, jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, hackingProductId)
+INSERT INTO productratings (id, `year`, jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, `dec`, hackingProductId)
 	VALUES
     (1, 2020, 1, 1.2, 1.6, 1.4, 1.4, 1.3, 1.4, 1.2, 1, 1, 0.9, 0.9, 1),
     (2, 2020, 1, 1, 1.1, 1.1, 1.3, 1.4, 1.2, 1.2, 1.1, 1, 1, 1.1, 2),
