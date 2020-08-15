@@ -22,7 +22,7 @@ const requestTable = document.getElementById('requestTable')
 
 if (messageForm != null) {
     const dateTime = formatter.format(new Date())
-    socket.emit('new-user',roomName ,'staff', 'staffJoin', dateTime) 
+    socket.emit('new-user',roomName , username , 'staffJoin', dateTime) 
 
     messageForm.addEventListener('submit',e => {
         const dateTime = formatter.format(new Date())
@@ -79,7 +79,7 @@ function appendRequest(request) {
     }
     const tickElement = document.createElement('td');
     tickElement.className = 'col';
-    if (request[7] == true){
+    if (request[8] == true){
         tickElement.innerHTML = '<i class="fas fa-check"></i>'
     }
     tableRow.append(tickElement);
@@ -88,13 +88,13 @@ function appendRequest(request) {
     buttonsElement.className = 'col';
     const acceptButton = document.createElement('button');
     acceptButton.className = 'btn btn-success mr-2';
-    acceptButton.onclick = function() {window.location.href = `http://localhost:5000/chat/room/${request[8]}`};
+    acceptButton.onclick = function() {window.location.href = `http://localhost:5000/chat/room/${request[9]}`};
     acceptButton.innerText = 'Join room'
     buttonsElement.append(acceptButton);
     const deleteButton = document.createElement('button');
     deleteButton.className= 'btn btn-danger';
     deleteButton.innerText = 'Delete room'
-    deleteButton.onclick = function() {socket.emit('close-room',request[8]);
+    deleteButton.onclick = function() {socket.emit('close-room',request[9]);
         location.reload();
     };
     buttonsElement.append(deleteButton);
