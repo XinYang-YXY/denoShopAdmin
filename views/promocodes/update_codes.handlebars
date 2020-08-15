@@ -8,14 +8,19 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="code_input">Code (click to generate)</label>
-                            <input type="text" name="code" id="code_input" class="form-control" onclick="codegen()"
-                                value="{{codes.code}}" readonly>
+                            <label for="code_input">Code</label>
+                            <input type="text" name="code" id="code_input" class="form-control" value="{{codes.code}}" required>
+                            <input type="button" class="btn btn-primary mt-2" value="Generate" onclick="codegen()">
                         </div>
                         <div class="form-group">
                             <label for="">Discount(%)</label>
                             <input type="number" min=0 max=100 step=0.01 name="discount" id="discount"
                                 class="form-control" value="{{codes.discount}}" onkeyup="validation('discount')">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Limit</label>
+                            <input type="number" min=0 step=1 name="limit" id="limit"
+                                class="form-control" value="{{codes.limit}}" onkeyup="" required>
                         </div>
                         <div class="form-group">
                             <label for="">Status</label>

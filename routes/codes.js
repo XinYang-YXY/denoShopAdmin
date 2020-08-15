@@ -48,9 +48,10 @@ router.post('/addcodes', (req, res) => {
     let code = req.body.code;
     let status = req.body.status;
     let discount = req.body.discount;
+    let limit = req.body.limit;
 
     Codes.create({
-        code, status, discount
+        code, status, discount, limit
     }).then(() => {
         alertMessage(res, 'success', 'Code succesfully added!', 'fas fa-check-circle', true);
         res.redirect('/codes');
@@ -62,9 +63,10 @@ router.put('/updatecodes/:id', (req, res) => {
     let code = req.body.code;
     let status = req.body.status;
     let discount = req.body.discount;
+    let limit = req.body.limit;
 
     Codes.update({
-        code, status, discount
+        code, status, discount, limit
     }, {
         where: {
             id: req.params.id
