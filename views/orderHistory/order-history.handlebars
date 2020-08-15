@@ -1,43 +1,32 @@
 <div class="wrapper">
     {{>_sidemenu}}
     <div id="content">
+        <div class="container-fluid">
+            <h3>Orders</h3>
+        </div>
         <div class="row">
             <div class="col">
-                
                 <div class="input-group" style="margin-top: 10px;">
                     <input class="form-control" id="search" placeholder="Search Order" name="s" autocomplete="off"
                         autofocus>
-                </div>
-
-                <div class="jumbotron jumbotron-fluid">
-                    <div class="container">
-                        <form>
-                            <div class="row">
-                                <div class="col">
-                                    <input type="text" id="searchKey" class="form-control"
-                                        placeholder="Search by Order ID / User ID">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <!-- Print order history table or by selected row -->
             <div class="col-12">
-                <table id="table" class="table table-hover table-responsive">
-                    <div class="pb-3 d-flex flex-row-reverse">
+                <table id="table" class="table table-hover">
+                    {{!-- <div class="pb-3 d-flex flex-row-reverse">
                         <a href="#" class="btn btn-primary">Print Selected</a>
-                    </div>
+                    </div> --}}
                     <thead>
                         <tr>
                             <th scope="col-2">Order ID</th>
                             <th scope="col-2">User ID</th>
                             <th scope="col-2">Transaction Date</th>
-                            <th scope="col-2">Delivery Date &amp; Time</th>
-                            <th scope="col-1">Actions</th>
-                            <th scope="col-3"></th>
+                            <th scope="col-4">Delivery Date &amp; Time</th>
+                            <th scope="col-2">Actions</th>
+                            {{!-- <th scope="col-3"></th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -58,9 +47,9 @@
                                         <a href="/orderHistory/invoice/{{this.id}}"><!--style="color: rgb(51, 153, 255);"--><i class="fa fa-eye"></i></a>
                                         <a href="/orderHistory/qrcode/{{this.id}}/{{this.orderStatus}}" target="_blank"><i class="fa fa-qrcode"></i></a>
                                     </td>
-                                    <td>
+                                    {{!-- <td>
                                         <input type="checkbox">
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             {{/each}}
 						{{/if}}
@@ -80,9 +69,9 @@
                                         <a href="/orderHistory/invoice/{{this.id}}"><!--style="color: rgb(51, 153, 255);"--><i class="fa fa-eye"></i></a>
                                         <a href="/orderHistory/qrcode/{{this.id}}/{{this.orderStatus}}" target="_blank"><i class="fa fa-qrcode"></i></a>
                                     </td>
-                                    <td>
+                                    {{!-- <td>
                                         <input type="checkbox">
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             {{/each}}
 						{{/if}}
@@ -102,9 +91,9 @@
                                         <a href="/orderHistory/invoice/{{this.id}}"><!--style="color: rgb(51, 153, 255);"--><i class="fa fa-eye"></i></a>
                                         <a href="/orderHistory/qrcode/{{this.id}}/{{this.orderStatus}}" target="_blank"><i class="fa fa-qrcode"></i></a>
                                     </td>
-                                    <td>
+                                    {{!-- <td>
                                         <input type="checkbox">
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             {{/each}}
 						{{/if}}
@@ -123,9 +112,9 @@
                                     <td>
                                         <a href="/orderHistory/invoice/{{this.id}}"><!--style="color: rgb(51, 153, 255);"--><i class="fa fa-eye"></i></a>
                                     </td>
-                                    <td>
+                                    {{!-- <td>
                                         <input type="checkbox">
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             {{/each}}
 						{{/if}}
@@ -159,4 +148,10 @@
             return !~text1.indexOf(val1) && !~text2.indexOf(val1) && !~text3.indexOf(val1) && !~text4.indexOf(val1);
 		}).hide();
 	}
+</script>
+
+<script type="text/javascript">
+  setTimeout(function(){
+    location = ''
+  },60000)
 </script>
