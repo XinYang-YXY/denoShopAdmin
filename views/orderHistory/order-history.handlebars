@@ -3,6 +3,12 @@
     <div id="content">
         <div class="row">
             <div class="col">
+                
+                <div class="input-group" style="margin-top: 10px;">
+                    <input class="form-control" id="search" placeholder="Search Order" name="s" autocomplete="off"
+                        autofocus>
+                </div>
+
                 <div class="jumbotron jumbotron-fluid">
                     <div class="container">
                         <form>
@@ -20,7 +26,7 @@
         <div class="row">
             <!-- Print order history table or by selected row -->
             <div class="col-12">
-                <table class="table table-hover table-responsive">
+                <table id="table" class="table table-hover table-responsive">
                     <div class="pb-3 d-flex flex-row-reverse">
                         <a href="#" class="btn btn-primary">Print Selected</a>
                     </div>
@@ -129,3 +135,28 @@
         </div>
     </div>
 </div>
+
+<script>
+    
+	$(function () {
+        $('#search').on('input', function () {
+                searchRow();
+            });
+	})
+
+	function searchRow() {
+		var $rows = $('#table > tbody > tr').not(".rowHeader");
+		var val1 = $.trim($('#search').val()).replace(/ +/g, ' ').toLowerCase();
+		//var val2 = $.trim($("#deviceSelector").text()).toLowerCase();
+		//val2 = (val2 === "all") ? "" : val2;
+
+		$rows.show().filter(function () {
+			var text1 = $(this).find('td:nth-child(1)').text().replace(/\s+/g, ' ').toLowerCase();
+			var text2 = $(this).find('td:nth-child(2)').text().replace(/\s+/g, ' ').toLowerCase();
+            var text3 = $(this).find('td:nth-child(3)').text().replace(/\s+/g, ' ').toLowerCase();
+            var text4 = $(this).find('td:nth-child(4)').text().replace(/\s+/g, ' ').toLowerCase();
+
+            return !~text1.indexOf(val1) && !~text2.indexOf(val1) && !~text3.indexOf(val1) && !~text4.indexOf(val1);
+		}).hide();
+	}
+</script>
