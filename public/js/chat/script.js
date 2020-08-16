@@ -1,4 +1,4 @@
-const socket = io.connect("http://localhost:8000",
+const socket = io.connect("https://denoshopchatserver.herokuapp.com/",
 	{reconnect: true}
 );
 
@@ -56,14 +56,14 @@ socket.on('user-disconnected', data=> {
 })
 
 socket.on('oneroom' , roomid => {
-    window.location.href = `http://www.localhost:5000/chat/oneroom/${roomid}`;
+    window.location.href = `${window.origin}/chat/oneroom/${roomid}`;
 })
 
 socket.on('redirect', message => {
     if (message == 'roomend'){
-        window.location.href = "http://www.localhost:5000/chat/redirect/roomend";
+        window.location.href = `${window.origin}/chat/redirect/roomend`;
     } else if (message == 'error'){
-        window.location.href = "http://www.localhost:5000/chat/redirect/error";
+        window.location.href = `${window.origin}/chat/redirect/error`;
     }
 })
 
@@ -88,7 +88,7 @@ function appendRequest(request) {
     buttonsElement.className = 'col';
     const acceptButton = document.createElement('button');
     acceptButton.className = 'btn btn-success mr-2';
-    acceptButton.onclick = function() {window.location.href = `http://localhost:5000/chat/room/${request[9]}`};
+    acceptButton.onclick = function() {window.location.href = `${window.origin}/chat/room/${request[9]}`};
     acceptButton.innerText = 'Join room'
     buttonsElement.append(acceptButton);
     const deleteButton = document.createElement('button');

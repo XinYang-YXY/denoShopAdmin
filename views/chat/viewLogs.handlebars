@@ -3,7 +3,7 @@
   <div class="listContainer flex-grow-1">
     {{> flashMsg/flashmsg}} 
     <h3 class="m-4">Chat Logs</h3>
-    <table class="table table-striped container">
+    <table class="table table-striped container" style="overflow-x: hidden;">
       <thead>
         <tr class="row ml-4 mr-4">
           <th class="col">Chat ID</th>
@@ -39,7 +39,7 @@
           <td class="col">{{this.StaffID}}</td>
           <td class="col">{{this.StaffName}}</td>
           <td class="col">
-            <button class="btn btn-success mr-2" onclick='window.location.href = "http://localhost:5000/chat/log/{{this.id}}"'>View Chat Log</button>
+            <button class="btn btn-success mr-2" onclick='window.location.href = `${window.origin}/chat/log/{{this.id}}`'>View Chat Log</button>
           </td>
         </tr>
         {{/each}}

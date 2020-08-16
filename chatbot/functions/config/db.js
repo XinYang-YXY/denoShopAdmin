@@ -1,7 +1,6 @@
-require("dotenv").config();
 module.exports = {
-	host: process.env.DBHOST,
-	database: process.env.DBNAME,
-	username: process.env.DBUSER,
-	password: process.env.DBPASS,
-};
+    host: "database-1.ck5kreevsouv.ap-southeast-1.rds.amazonaws.com",
+    database: "denoProduction",
+    username: "denoshop",
+    password: "yxy.ninjaDeno"
+}

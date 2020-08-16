@@ -4,9 +4,10 @@
   }
 
 .wrapper{
-	height:100vh;
+	height:auto;
 }
 .listContainer{
+	height: 100% ;
     /* background: #ffffff;
 	padding: 10px 20px;
 	border: 1px solid #dddddd;
