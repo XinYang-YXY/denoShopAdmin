@@ -79,10 +79,10 @@ a:focus {
     margin-right: 10px;
 }
 
-#sidebar ul li.active>a,
+#sidebar ul li.active > a,
 a[aria-expanded="true"] {
-    color: #262729;
     background: #fff;
+    color: #262729;
 }
 
 a[data-toggle="collapse"] {
