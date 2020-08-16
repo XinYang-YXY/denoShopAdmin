@@ -201,9 +201,9 @@
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                let pos = parseFloat(data.score.positive) * 100;
-                let neu = parseFloat(data.score.neutral) * 100
-                let neg = parseFloat(data.score.negative) * 100;
+                let pos = (parseFloat(data.score.positive) * 100).toFixed(1);
+                let neu = (parseFloat(data.score.neutral) * 100).toFixed(1);
+                let neg = (parseFloat(data.score.negative) * 100).toFixed(1);
 
                 document.getElementById('posBar').style.width = `${pos.toString()}%`;
                 document.getElementById('neuBar').style.width = `${neu.toString()}%`;
