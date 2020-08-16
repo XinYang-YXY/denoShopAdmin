@@ -1,17 +1,24 @@
 const mySQLDB = require("./DBConfig");
 
 // Import all the models
+const admin = require("../models/Admin");
 const user = require("../models/User");
 const purchaseRecord = require("../models/PurchaseRecord");
 const cartItem = require("../models/CartItem");
 const hackingProduct = require("../models/HackingProduct");
+const deliveryInfo = require("../models/DeliveryInfo");
+const chat = require("../models/Chat");
+const order = require("../models/Order")
+// Import all the models
+// DB Sync
+const category = require("../models/Category");
+const banner = require("../models/Banner");
+const promodecode = require("../models/PromoCode");
 const productStats = require("../models/ProductStats");
 const productRating = require("../models/ProductRatings");
 const userRating = require("../models/UserRating");
-const deliveryInfo = require("../models/DeliveryInfo");
-const category = require("../models/Category");
-const chat = require("../models/Chat");
-// Import all the models
+
+// DB Sync
 
 const setUpDB = (drop) => {
 	mySQLDB
@@ -20,14 +27,35 @@ const setUpDB = (drop) => {
 			console.log("Denoshop DB is connected!");
 		})
 		.then(() => {
-			user.hasMany(purchaseRecord); // Define relationship
-			user.hasMany(cartItem);
-			user.hasMany(deliveryInfo);
-			category.hasMany(hackingProduct, {foreignKey: 'category'});
+			// Define relationship
+
+			// User - Cart Item
+			user.hasMany(cartItem, {foreignKey: "userId"});
+			cartItem.belongsTo(user, {foreignKey: "userId"})
+
+			// User - Delivery Info
+			user.hasMany(deliveryInfo, {foreignKey: "userId"});
+			deliveryInfo.belongsTo(user, {foreignKey: "userId"});
+
+			// User - Order
+			user.hasMany(order, {foreignKey: "userId"});
+			order.belongsTo(user, {foreignKey: "userId"});
+
+			// Order - Purchase Record
+			order.hasMany(purchaseRecord, {foreignKey: "orderId"});
+			purchaseRecord.belongsTo(order, {foreignKey: "orderId"});
+
+			// DeliveryInfo - Order
+			deliveryInfo.hasMany(order, {foreignKey: 'deliveryInfoId'});
+			order.belongsTo(deliveryInfo, {foreignKey: 'deliveryInfoId'});
+
+			// First dbSync
+			category.hasMany(hackingProduct,{foreignKey: 'category'});
 
 			// Product-Stats Relation
 			hackingProduct.hasMany(productStats);
 			productStats.belongsTo(hackingProduct);
+			
 
 			// Product-Rating Relation
 			hackingProduct.hasMany(productRating);
@@ -40,7 +68,8 @@ const setUpDB = (drop) => {
 			// User-UserRating Relation
 			user.hasMany(userRating);
 			userRating.belongsTo(user);
-			
+			// First dbSync
+
 			mySQLDB
 				.sync({
 					// Creates table if none exists

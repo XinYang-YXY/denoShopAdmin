@@ -1,11 +1,10 @@
-const socket = io.connect("http://localhost:5500",
+const socket = io.connect("https://denoshopvideoserver.herokuapp.com/",
 	{reconnect: true}
 );
 
 const requestTable = document.getElementById('requestTable')
 
 if (requestTable != null){
-  console.log('OKKKKKKKKKKKKKKKKKKKKKK')
   socket.emit('requestRequest');
   socket.on('currentRequest', requests =>{
       requests.forEach(appendRequest);
@@ -21,39 +20,6 @@ if (requestTable != null){
 
   const peerConnection = new RTCPeerConnection();
 
-  // function unselectUsersFromList() {
-  //   const alreadySelectedUser = document.querySelectorAll(
-  //     ".active-user.active-user--selected"
-  //   );
-
-  //   alreadySelectedUser.forEach(el => {
-  //     el.setAttribute("class", "active-user");
-  //   });
-  // }
-
-  // function createUserItemContainer(socketId) {
-  //   const userContainerEl = document.createElement("div");
-
-  //   const usernameEl = document.createElement("p");
-
-  //   userContainerEl.setAttribute("class", "active-user");
-  //   userContainerEl.setAttribute("id", socketId);
-  //   usernameEl.setAttribute("class", "username");
-  //   usernameEl.innerHTML = `Socket: ${socketId}`;
-
-  //   userContainerEl.appendChild(usernameEl);
-
-  //   userContainerEl.addEventListener("click", () => {
-  //     unselectUsersFromList();
-  //     userContainerEl.setAttribute("class", "active-user active-user--selected");
-  //     const talkingWithInfo = document.getElementById("talking-with-info");
-  //     talkingWithInfo.innerHTML = `Talking with: "Socket: ${socketId}"`;
-  //     callUser(socketId);
-  //   });
-
-  //   return userContainerEl;
-  // }
-
   async function callUser() {
     const offer = await peerConnection.createOffer();
     await peerConnection.setLocalDescription(new RTCSessionDescription(offer));
@@ -64,31 +30,6 @@ if (requestTable != null){
       to: socketId
     });
   }
-
-  // function updateUserList(socketIds) {
-  //   const activeUserContainer = document.getElementById("active-user-container");
-
-  //   socketIds.forEach(socketId => {
-  //     const alreadyExistingUser = document.getElementById(socketId);
-  //     if (!alreadyExistingUser) {
-  //       const userContainerEl = createUserItemContainer(socketId);
-
-  //       activeUserContainer.appendChild(userContainerEl);
-  //     }
-  //   });
-  // }
-
-  // socket.on("update-user-list", ({ users }) => {
-  //   updateUserList(users);
-  // });
-
-  // socket.on("remove-user", ({ socketId }) => {
-  //   const elToRemove = document.getElementById(socketId);
-
-  //   if (elToRemove) {
-  //     elToRemove.remove();
-  //   }
-  // });
 
   socket.on("call-made", async data => {
     await peerConnection.setRemoteDescription(
@@ -115,11 +56,11 @@ if (requestTable != null){
   });
 
   socket.on("Error", function(){
-    window.location.href = `http://www.localhost:5000/chat/error`;
+    window.location.href = `${window.origin}/chat/error`;
   })
 
   socket.on("ended", function(){
-    window.location.href = `http://www.localhost:5000/chat/ended`;
+    window.location.href = `${window.origin}/chat/ended`;
   })
 
 
@@ -127,11 +68,6 @@ if (requestTable != null){
     const message = document.getElementById('messageo')
     message.innerText = `You are now connected to client, ${name}`
   })
-
-  // socket.on("call-rejected", data => {
-  //   alert(`User: "Socket: ${data.socket}" rejected your call.`);
-  //   unselectUsersFromList();
-  // });
 
   peerConnection.ontrack = function({ streams: [stream] }) {
     const remoteVideo = document.getElementById("remote-video");
@@ -176,13 +112,13 @@ function appendRequest(request) {
   buttonsElement.className = 'col';
   const acceptButton = document.createElement('button');
   acceptButton.className = 'btn btn-success mr-2';
-  acceptButton.onclick = function() {window.location.href = `http://localhost:5000/chat/videoRoom/${request[8]}`};
+  acceptButton.onclick = function() {window.location.href = `${window.origin}/chat/videoRoom/${request[8]}`};
   acceptButton.innerText = 'Join room'
   buttonsElement.append(acceptButton);
   const deleteButton = document.createElement('button');
   deleteButton.className= 'btn btn-danger';
   deleteButton.innerText = 'Delete room'
-  deleteButton.onclick = function() {socket.emit('close-room',request[8]);
+  deleteButton.onclick = function() {socket.emit('close-vidroom',request[8]);
       location.reload();
   };
   buttonsElement.append(deleteButton);
