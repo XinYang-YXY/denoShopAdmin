@@ -1,5 +1,5 @@
 const recombee = require('recombee-api-client');
 const rqs = recombee.requests;
-const client = new recombee.ApiClient('donthaveone-dev', 'lDQsppFUUERfSaPc3m6f72haf3CICq8pptru7IV27ucZLuqpOlaI8PKvzzs64U0u');
+const client = new recombee.ApiClient('denoshop-dev', 'Cu0dW2zuQ9e8lDh8mWvVghwYLUpBiyISc7p6laeFz9TER4oA3XgVAEYm78byWUPp');
 
 module.exports = {rqs, client};
