@@ -2,10 +2,9 @@ const express = require('express');
 const router = express.Router();
 const alertMessage = require('../helpers/messenger');
 const Category = require('../models/Category');
-const Banner = require('../models/Banner');
+const ensureAuthenticated = require("../helpers/auth");
 
-
-router.get('/', (req, res) => {
+router.get('/', ensureAuthenticated, (req, res) => {
     Category.findAll()
         .then((category) => {
             res.render('category/category', {
@@ -19,7 +18,7 @@ router.get('/', (req, res) => {
 })
 
 
-router.get('/add', (req, res) => {
+router.get('/add', ensureAuthenticated, (req, res) => {
     res.render('category/add_category', {
         title: "Add a product category",
         style: { sidemenu: "sidemenu-styling.css", dashboard: "dashboard-styling.css", text: "inventory/create_products.css" },
@@ -28,7 +27,7 @@ router.get('/add', (req, res) => {
 });
 
 
-router.get('/update/:id', (req, res) => {
+router.get('/update/:id', ensureAuthenticated, (req, res) => {
     Category.findOne({
         where: {
             id: req.params.id
@@ -94,7 +93,7 @@ router.put('/updatecategory/:id', (req, res) => {
 })
 
 
-router.get('/delete/:id', (req, res) => {
+router.get('/delete/:id', ensureAuthenticated, (req, res) => {
     let categoryId = req.params.id;
     Category.findOne({
         where: {

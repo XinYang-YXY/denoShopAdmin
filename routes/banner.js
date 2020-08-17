@@ -7,11 +7,12 @@ const Banner = require('../models/Banner');
 const cloudinary = require('cloudinary');
 require("../helpers/inventory/cloudinary");
 const { single_upload_banner } = require('../helpers/inventory/multer_Image');
+const ensureAuthenticated = require("../helpers/auth");
 
 var original_banner_url = "";
 
 
-router.get('/test', (req, res) => {
+router.get('/test', ensureAuthenticated, (req, res) => {
     let a = [];
     Banner.findAll({
         attributes: ["imageFile"],
@@ -34,7 +35,7 @@ router.get('/test', (req, res) => {
 });
 
 
-router.get('/', (req, res) => {
+router.get('/', ensureAuthenticated, (req, res) => {
     Banner.findAll()
         .then((banner) => {
             res.render('banner/banner', {
@@ -48,7 +49,7 @@ router.get('/', (req, res) => {
 })
 
 
-router.get('/add', (req, res) => {
+router.get('/add', ensureAuthenticated, (req, res) => {
     res.render('banner/add_banner', {
         title: "Add Banner",
         style: { sidemenu: "sidemenu-styling.css", dashboard: "dashboard-styling.css", text: "inventory/create_products.css" },
@@ -57,7 +58,7 @@ router.get('/add', (req, res) => {
 });
 
 
-router.get('/update/:id', (req, res) => {
+router.get('/update/:id', ensureAuthenticated, (req, res) => {
     Banner.findOne({
         where: {
             id: req.params.id
@@ -120,7 +121,7 @@ router.post('/addBanner', async (req, res) => {
 });
 
 
-router.get('/delete/:id', (req, res) => {
+router.get('/delete/:id', ensureAuthenticated, (req, res) => {
     let bannerId = req.params.id;
     Banner.findOne({
         where: {
