@@ -12,10 +12,11 @@ const { upload, single_upload1, single_upload2, single_upload3, single_upload4 }
 const ProductStats = require('../models/ProductStats');
 const ProductRatings = require('../models/ProductRatings');
 const currentDate = new Date();
+const ensureAuthenticated = require("../helpers/auth");
 
 var original_image_url = [];
 
-router.get('/', (req, res) => {
+router.get('/', ensureAuthenticated, (req, res) => {
     Inventory.findAll()
         .then((inventory) => {
             res.render('inventory/inventory', {
@@ -29,7 +30,7 @@ router.get('/', (req, res) => {
 });
 
 
-router.get('/update/:id', (req, res) => {
+router.get('/update/:id', ensureAuthenticated, (req, res) => {
     let category_names;
     Category.findAll()
         .then((category) => {
@@ -52,7 +53,7 @@ router.get('/update/:id', (req, res) => {
 });
 
 
-router.get('/delete/:id', (req, res) => {
+router.get('/delete/:id', ensureAuthenticated, (req, res) => {
     let itemId = req.params.id;
     Inventory.findOne({
         where: {
@@ -88,7 +89,7 @@ router.get('/delete/:id', (req, res) => {
 });
 
 
-router.get('/add', (req, res) => {
+router.get('/add', ensureAuthenticated, (req, res) => {
     Category.findAll()
         .then((category) => {
             res.render('inventory/add_product', {

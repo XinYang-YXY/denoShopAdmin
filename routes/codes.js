@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const alertMessage = require('../helpers/messenger');
 const Codes = require('../models/PromoCode');
+const ensureAuthenticated = require("../helpers/auth");
 
-
-router.get('/', (req, res) => {
+router.get('/', ensureAuthenticated, (req, res) => {
     Codes.findAll()
         .then((codes) => {
             res.render('promocodes/codes', {
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 })
 
 
-router.get('/add', (req, res) => {
+router.get('/add', ensureAuthenticated, (req, res) => {
     res.render('promocodes/add_codes', {
         title: "Add code",
         style: { sidemenu: "sidemenu-styling.css", dashboard: "dashboard-styling.css", text: "inventory/create_products.css" },
@@ -27,7 +27,7 @@ router.get('/add', (req, res) => {
 });
 
 
-router.get('/update/:id', (req, res) => {
+router.get('/update/:id', ensureAuthenticated, (req, res) => {
     Codes.findOne({
         where: {
             id: req.params.id
@@ -79,7 +79,7 @@ router.put('/updatecodes/:id', (req, res) => {
 })
 
 
-router.get('/delete/:id', (req, res) => {
+router.get('/delete/:id', ensureAuthenticated, (req, res) => {
     let codesID = req.params.id;
     Codes.findOne({
         where: {
